@@ -1,4 +1,3 @@
-const token = require('../token.json');
 const config = require('../config.json');
 
 module.exports = client => {
