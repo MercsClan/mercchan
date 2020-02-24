@@ -49,8 +49,6 @@ client.on('message', message => {
   if (commandfile) commandfile.run(client, message, args);
 });
 
-console.log(process.env.DISCORDTOKEN);
-
 client
   .login(process.env.DISCORDTOKEN)
   .then(console.log)
