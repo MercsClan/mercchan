@@ -1,21 +1,23 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const token = require('../token.json');
+require('dotenv').config();
 const errors = require('../util/errors.js');
 
 module.exports.run = async (client, message, args) => {
-  if (message.author.id !== `${config.ownerid}`) return errors.ownersOnly(message);
+  if (message.author.id !== `${config.ownerid}`)
+    return errors.ownersOnly(message);
 
-  if (message.author.id == `${config.ownerid}`){
+  if (message.author.id == `${config.ownerid}`) {
     let embed = new Discord.RichEmbed()
-    .setTitle('Rebooting...')
-    .setColor(config.red);
-    message.channel.send(embed)
-    
-    .then(message => client.destroy())
-    .then(() => client.login(token.token))
+      .setTitle('Rebooting...')
+      .setColor(config.red);
+    message.channel
+      .send(embed)
+
+      .then(message => client.destroy())
+      .then(() => client.login(process.env.DISCORDTOKEN));
   }
-}
+};
 
 module.exports.help = {
   name: 'reboot',
