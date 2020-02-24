@@ -1,0 +1,2 @@
+# mercchan
+ Mercs Discord Bot
