@@ -4,8 +4,8 @@ const ms = require('ms');
 const errors = require('../util/errors.js');
 
 module.exports.run = async (client, message, args) => {
-
-  if (!message.member.hasPermission('MANAGE_MESSAGES')) return errors.noPermissions(message, 'MANAGE_MESSAGES');
+  if (!message.member.hasPermission('MANAGE_MESSAGES'))
+    return errors.noPermissions(message, 'MANAGE_MESSAGES');
 
   let user = message.guild.member(message.mentions.members.first());
   if (!user) return errors.invalidUser(message);
@@ -16,13 +16,15 @@ module.exports.run = async (client, message, args) => {
   let auditlogchannel = message.guild.channels.find('name', 'audit-log');
   if (!auditlogchannel) return errors.noLogChannel(message);
 
-  user.removeRole(muterole.id)
-    let embed = new Discord.RichEmbed()
+  user.removeRole(muterole.id);
+  let embed = new Discord.RichEmbed()
     .setTitle('User has been Unmuted')
     .setColor(config.yellow)
-    .addField('Muted User', `${user}`)
-    auditlogchannel.send(embed);
-    console.log(`[${message.guild}] ${user.user.username} has been unmuted in ${message.guild}.`);
+    .addField('Muted User', `${user}`);
+  auditlogchannel.send(embed).catch(err => console.log(err));
+  console.log(
+    `[${message.guild}] ${user.user.username} has been unmuted in ${message.guild}.`
+  );
 };
 
 module.exports.help = {

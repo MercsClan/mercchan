@@ -10,10 +10,53 @@ module.exports = client => {
   client.on('guildDelete', reqEvent('guildDelete'));
 
   /*
-	client.on('guildBanAdd', reqEvent('guildBanAdd'));
-	client.on('guildBanRemove', reqEvent('guildBanRemove'));
-	client.on('roleCreate', reqEvent('roleCreate'));
-	client.on('roleDelete', reqEvent('roleDelete'));
+	channelCreate
+channelDelete
+channelPinsUpdate
+channelUpdate
+clientUserGuildSettingsUpdate
+clientUserSettingsUpdate
+debug
+disconnect
+emojiCreate
+emojiDelete
+emojiUpdate
+error
+guildBanAdd
+guildBanRemove
+guildCreate
+guildDelete
+guildIntegrationsUpdate
+guildMemberAdd
+guildMemberAvailable
+guildMemberRemove
+guildMembersChunk
+guildMemberSpeaking
+guildMemberUpdate
+guildUnavailable
+guildUpdate
+message
+messageDelete
+messageDeleteBulk
+messageReactionAdd
+messageReactionRemove
+messageReactionRemoveAll
+messageUpdate
+presenceUpdate
+rateLimit
+ready
+reconnecting
+resume
+roleCreate
+roleDelete
+roleUpdate
+typingStart
+typingStop
+userNoteUpdate
+userUpdate
+voiceStateUpdate
+warn
+webhookUpdate
 
 */
 };

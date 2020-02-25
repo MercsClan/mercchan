@@ -3,12 +3,7 @@ const config = require('../config.json'); // this links to the config.json file
 
 module.exports.run = async (client, message, args) => {
   let guild = message.guild;
-  let large = message.guild.large ? '✅' : '❎';
   let icon = message.guild.iconURL;
-
-  let createdAtRaw = guild.createdAt.toDateString();
-  let createdAt = createdAtRaw.split(' ');
-
   let textChannels = 0;
   let voiceChannels = 0;
   guild.channels.forEach(channel => {

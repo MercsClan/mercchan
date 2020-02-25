@@ -11,7 +11,10 @@ module.exports.run = async (client, message, args) => {
       .setTitle('Shutting Down...')
       .setColor(config.red);
 
-    message.channel.send(embed).then(message => client.destroy());
+    message.channel
+      .send(embed)
+      .then(message => client.destroy())
+      .catch(err => console.log(err));
   }
 };
 

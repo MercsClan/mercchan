@@ -3,18 +3,24 @@ const config = require('../config.json');
 const errors = require('../util/errors.js');
 
 module.exports.run = async (client, message, args) => {
-  if (!message.member.hasPermission('ADMINISTRATOR')) return errors.noPermissions(message, 'ADMINISTRATOR');
+  if (!message.member.hasPermission('ADMINISTRATOR')) {
+    return errors.noPermissions(message, 'ADMINISTRATOR');
+  }
 
   if (!args[0]) return errors.emptyMessage(message);
   let inputmessage = args.join(' ');
 
   let embed = new Discord.RichEmbed()
-  .setColor(config.green)
-  .setDescription(inputmessage)
+    .setColor(config.green)
+    .setDescription(inputmessage);
 
-  message.delete().catch(err=>{});
-  message.channel.send(embed);
-  return
+  message.delete().catch(err => {
+    console.log(err);
+  });
+  message.channel.send(embed).catch(err => {
+    console.log(err);
+  });
+  return;
 };
 
 module.exports.help = {

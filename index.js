@@ -52,4 +52,4 @@ client.on('message', message => {
 client
   .login(process.env.DISCORDTOKEN)
   .then(console.log('Logged In'))
-  .catch(console.error);
+  .catch(err => console.log(err));
