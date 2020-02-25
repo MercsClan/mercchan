@@ -51,5 +51,5 @@ client.on('message', message => {
 
 client
   .login(process.env.DISCORDTOKEN)
-  .then(console.log)
+  .then(console.log('Logged In'))
   .catch(console.error);
