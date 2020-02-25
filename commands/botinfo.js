@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args) => {
     .addField('User Count', client.users.size, true)
     .addField('Uptime', `${time(client.uptime)}`);
 
-  return message.channel.send(embed);
+  return message.channel.send(embed).catch(err => console.log(err));
 };
 
 module.exports.help = {

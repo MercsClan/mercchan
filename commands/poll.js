@@ -6,18 +6,22 @@ module.exports.run = async (client, message, args) => {
   if (args == 0) return errors.invalidPoll(message);
 
   let embed = new Discord.RichEmbed()
-  .setTitle(`Poll by ${message.author.username}`)
-  .setColor(config.yellow)
-  .setDescription(`${args}`.split(',').join(' '));
+    .setTitle(`Poll by ${message.author.username}`)
+    .setColor(config.yellow)
+    .setDescription(`${args}`.split(',').join(' '));
 
-  console.log(`[${message.guild}] ${message.author.username} has created a poll with the question: ${args}.`);
-  return message.channel.send(embed).then(message.delete())
+  console.log(
+    `[${message.guild}] ${message.author.username} has created a poll with the question: ${args}.`
+  );
+  return message.channel
+    .send(embed)
+    .then(message.delete())
 
-  .then(function (message, str) {
-       message.react("👍")
-       message.react("👎")
-     }).catch(function() {
-  });
+    .then(function(message, str) {
+      message.react('👍');
+      message.react('👎');
+    })
+    .catch(err => console.log(err));
 };
 
 module.exports.help = {

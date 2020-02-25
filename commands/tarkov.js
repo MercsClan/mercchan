@@ -1,8 +1,11 @@
 const errors = require('../util/errors.js');
 
 module.exports.run = async (client, message, args) => {
-  if (!args[0]) return errors.emptyMessage(message);
   let map = args[0];
+
+  if (!map) {
+    return errors.noTakovMap(message);
+  }
 
   switch (map.toLowerCase()) {
     case 'custom':
@@ -37,6 +40,8 @@ module.exports.run = async (client, message, args) => {
       return message.channel.send(
         'https://www.gamemaps.co.uk/game/tarkov/maps/lab_explained_en'
       );
+    default:
+      return errors.noTarkovMap(message);
   }
 
   return;

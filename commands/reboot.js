@@ -15,7 +15,8 @@ module.exports.run = async (client, message, args) => {
       .send(embed)
 
       .then(message => client.destroy())
-      .then(() => client.login(process.env.DISCORDTOKEN));
+      .then(() => client.login(process.env.DISCORDTOKEN))
+      .catch(err => console.log(err));
   }
 };
 
