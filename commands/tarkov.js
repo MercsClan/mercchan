@@ -37,6 +37,7 @@ module.exports.run = async (client, message, args) => {
       );
     case 'lab':
     case 'thelab':
+    case 'labs':
       return message.channel.send(
         'https://www.gamemaps.co.uk/game/tarkov/maps/lab_explained_en'
       );
