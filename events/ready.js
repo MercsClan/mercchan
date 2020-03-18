@@ -16,7 +16,8 @@ module.exports = client => {
           0
         )}MBs of RAM`,
         `Not Escaping Tarkov`,
-        `Nuking Ghandi`
+        `Nuking Ghandi`,
+        `What is love, baby dont hurt me`
       ];
       let info = Gameinfo[Math.floor(Math.random() * Gameinfo.length)];
 

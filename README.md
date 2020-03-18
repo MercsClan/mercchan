@@ -24,7 +24,7 @@ Mercs Discord Bot
 | !report     | @user, reason |                 | Reports a given user for a given reason                         |
 | !say        | message       | ADMINISTRATOR   | Say a message as the bot                                        |
 | !shutdown   | role, @user   | OWNER           | Shuts down bot instance                                         |
-| !tarkov     | map           |                 | Fetches link to Tarkov map for given link                       |
+| !tarkov     | map           |                 | Fetches link to Tarkov map for given map                        |
 | !terminate  | role, @user   | OWNER           | Bot leaves guild and terminates instance                        |
 | !unmute     | @user         | MANAGE_MESSAGES | Unmutes a muted user                                            |
 | !userinfo   | @user         |                 | Gets info on a given user                                       |
