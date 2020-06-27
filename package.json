@@ -10,8 +10,13 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.2.5",
     "ms": "^2.1.1",
-    "random-puppy": "^1.1.0"
+    "opusscript": "0.0.7",
+    "random-puppy": "^1.1.0",
+    "simple-youtube-api": "^5.2.1",
+    "ytdl-core-discord": "^1.2.1"
   },
   "devDependencies": {}
 }

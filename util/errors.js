@@ -12,8 +12,8 @@ module.exports.noLogChannel = (message, perm) => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
@@ -28,8 +28,8 @@ module.exports.noReportChannel = (message, perm) => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
@@ -44,13 +44,13 @@ module.exports.noPermissions = (message, perm) => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if no user has been provided or if user is invalid
-module.exports.invalidUser = message => {
+module.exports.invalidUser = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('This user could not be found or does not exist!')
@@ -58,13 +58,13 @@ module.exports.invalidUser = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if no reason has been provided
-module.exports.invalidReason = message => {
+module.exports.invalidReason = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('No reason has been provided.')
@@ -72,13 +72,13 @@ module.exports.invalidReason = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used for users that cannot be punished
-module.exports.cannotPunish = message => {
+module.exports.cannotPunish = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('This user cannot be punished.')
@@ -86,13 +86,13 @@ module.exports.cannotPunish = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if a user attempts to send an empty poll
-module.exports.invalidPoll = message => {
+module.exports.invalidPoll = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Please provide a question for your poll.')
@@ -100,13 +100,13 @@ module.exports.invalidPoll = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if a user doesnt specify a tarkov map
-module.exports.noTakovMap = message => {
+module.exports.noTakovMap = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -116,13 +116,23 @@ module.exports.noTakovMap = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
+// Used if a user doesnt specify a youtube link
+module.exports.noYoutubeLink = (message) => {
+  let embed = new Discord.RichEmbed()
+    .setTitle('An error has occurred!')
+    .setDescription('Please provide a Youtube link to play')
+    .setColor(config.red);
+
+  message.channel.send(embed);
+};
+
 // Used if a user does not specify a number of messages to purge
-module.exports.provideNumber = message => {
+module.exports.provideNumber = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -132,13 +142,13 @@ module.exports.provideNumber = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if a user does not specify a number of messages to purge
-module.exports.emptyMessage = message => {
+module.exports.emptyMessage = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -148,13 +158,13 @@ module.exports.emptyMessage = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if no valid URL is provided [used in the shortenurl command]
-module.exports.invalidURL = message => {
+module.exports.invalidURL = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Please enter a valid URL.')
@@ -162,13 +172,13 @@ module.exports.invalidURL = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if no time is specified
-module.exports.invalidTime = message => {
+module.exports.invalidTime = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('You have not specified a time, using d/h/m/s')
@@ -176,23 +186,23 @@ module.exports.invalidTime = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
 // Used if no time is specified
-module.exports.ownerOnly = message => {
+module.exports.ownerOnly = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(`Only <@${config.ownerid}> can use this command.`)
     .setColor(config.red);
 
-  message.channel.send(embed).catch(err => console.log(err));
+  message.channel.send(embed).catch((err) => console.log(err));
 };
 
 // Used if the client ID is blank.
-module.exports.invalidClientID = message => {
+module.exports.invalidClientID = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -200,10 +210,10 @@ module.exports.invalidClientID = message => {
     )
     .setColor(config.red);
 
-  message.channel.send(embed).catch(err => console.log(err));
+  message.channel.send(embed).catch((err) => console.log(err));
 };
 
-module.exports.incorrectChannel = message => {
+module.exports.incorrectChannel = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -213,12 +223,12 @@ module.exports.incorrectChannel = message => {
 
   message.channel
     .send(embed)
-    .then(message =>
-      message.delete(config.errortimeout).catch(err => console.log(err))
+    .then((message) =>
+      message.delete(config.errortimeout).catch((err) => console.log(err))
     );
 };
 
-module.exports.noCommandName = message => {
+module.exports.noCommandName = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Must provide a command name to reload.')
@@ -226,11 +236,11 @@ module.exports.noCommandName = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
-module.exports.anotherNumber = message => {
+module.exports.anotherNumber = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Please provide a number less than 100')
@@ -238,11 +248,11 @@ module.exports.anotherNumber = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
-module.exports.userNotMuted = message => {
+module.exports.userNotMuted = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('This user is not muted.')
@@ -250,11 +260,11 @@ module.exports.userNotMuted = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
-module.exports.noAPIKey = message => {
+module.exports.noAPIKey = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('An API key is not available or could not be found.')
@@ -262,11 +272,11 @@ module.exports.noAPIKey = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
-module.exports.invalidPlatform = message => {
+module.exports.invalidPlatform = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Please include a platform and username in your arguments.')
@@ -274,11 +284,11 @@ module.exports.invalidPlatform = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
-module.exports.commandNotEnabled = message => {
+module.exports.commandNotEnabled = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription(
@@ -288,12 +298,12 @@ module.exports.commandNotEnabled = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
 
 // Used if a user does not specify a number of messages to purge
-module.exports.emptyCode = message => {
+module.exports.emptyCode = (message) => {
   let embed = new Discord.RichEmbed()
     .setTitle('An error has occurred!')
     .setDescription('Please specify the code you would like to send.')
@@ -301,6 +311,6 @@ module.exports.emptyCode = message => {
 
   message.channel
     .send(embed)
-    .then(message => message.delete(config.errortimeout))
-    .catch(err => console.log(err));
+    .then((message) => message.delete(config.errortimeout))
+    .catch((err) => console.log(err));
 };
