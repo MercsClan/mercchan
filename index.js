@@ -9,7 +9,7 @@ require('./util/eventLoader.js')(client);
 // Reads all commands and boots them in
 fs.readdir('./commands/', (err, files) => {
   if (err) console.log(err);
-  let jsfile = files.filter(f => f.split('.').pop() === 'js');
+  let jsfile = files.filter((f) => f.split('.').pop() === 'js');
   if (jsfile.length <= 0) {
     console.log("Couldn't find commands.");
     return;
@@ -26,7 +26,17 @@ fs.readdir('./commands/', (err, files) => {
 client.on('voiceStateUpdate', (oldMember, newMember) => {
   let oldUserChannel = oldMember.voiceChannel;
   let newUserChannel = newMember.voiceChannel;
-
+  const member = newMember.user.username;
+  const channel = client.guilds
+    .get('300763347312181248')
+    .channels.get('731692862323818538');
+  //This is wanting to play notifications
+  if (newUserChannel.name === '👋 Wanting To Play 👋') {
+    let embed = new Discord.RichEmbed()
+      .setTitle(`${member} Joined Wanting To Play`)
+      .setColor(config.red);
+    channel.send(embed).catch((err) => console.log(err));
+  }
   if (oldUserChannel === undefined && newUserChannel !== undefined) {
     console.log('User Joins a voice channel');
   } else if (newUserChannel === undefined) {
@@ -35,7 +45,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
 });
 
 // Message Guild Event
-client.on('message', message => {
+client.on('message', (message) => {
   if (message.author.bot) return;
   if (message.channel.type === 'dm') return;
 
@@ -52,4 +62,4 @@ client.on('message', message => {
 client
   .login(process.env.DISCORDTOKEN)
   .then(console.log('Logged In'))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
