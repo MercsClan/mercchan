@@ -31,10 +31,13 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     .get('300763347312181248')
     .channels.get('731692862323818538');
   //This is wanting to play notifications
-  if (newUserChannel.name === '👋 Wanting To Play 👋') {
+  if (
+    newUserChannel.name === '👋 Wanting To Play 👋' &&
+    oldUserChannel !== '👋 Wanting To Play 👋'
+  ) {
     let embed = new Discord.RichEmbed()
       .setTitle(`${member} Joined Wanting To Play`)
-      .setColor(config.red);
+      .setColor(config.green);
     channel.send(embed).catch((err) => console.log(err));
   }
   if (oldUserChannel === undefined && newUserChannel !== undefined) {
