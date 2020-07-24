@@ -174,13 +174,6 @@ async function play(guild, song) {
     .on('error', (error) => console.error(error));
 
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-  const nptext = new Discord.RichEmbed()
-    .setColor('#808080')
-    .setTitle('Now Playing')
-    .setDescription(`[${song.title}](${song.url}) [${song.requested}]`);
-
-  serverQueue.textChannel.send(nptext);
 }
 
 function shuffle(songs) {
