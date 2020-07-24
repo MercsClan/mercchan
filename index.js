@@ -37,7 +37,9 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   ) {
     let embed = new Discord.RichEmbed()
       .setTitle(`${member} Joined Wanting To Play`)
-      .setColor(config.green);
+      .setDescription(newMember.highestRole.name)
+      .setColor(newMember.colorRole.hexColor)
+      .setThumbnail(newMember.user.avatarURL);
     channel.send(embed).catch((err) => console.log(err));
   }
   if (oldUserChannel === undefined && newUserChannel !== undefined) {
