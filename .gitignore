@@ -101,3 +101,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+dependency# FFMPEG Windows Executable Files
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
