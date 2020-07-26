@@ -135,6 +135,7 @@ function playSong(queue, message) {
           })
         )
         .on("start", function () {
+          console.log("start");
           message.guild.musicData.songDispatcher = dispatcher;
           dispatcher.setVolume(message.guild.musicData.volume);
           message.guild.musicData.nowPlaying = queue[0];
@@ -142,7 +143,8 @@ function playSong(queue, message) {
         })
         .on("finish", function () {
           if (queue.length >= 1) {
-            return classThis.playSong(queue, message);
+            console.log("finish");
+            return playSong(queue, message);
           } else {
             message.guild.musicData.isPlaying = false;
             message.guild.musicData.nowPlaying = null;
