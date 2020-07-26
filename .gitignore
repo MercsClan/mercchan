@@ -1,5 +1,7 @@
 # Discord Token
 .env
+node_modules/
+jspm_packages/
 
 # Logs
 logs
@@ -102,7 +104,7 @@ dist
 # TernJS port file
 .tern-port
 
-dependency# FFMPEG Windows Executable Files
+# FFMPEG Windows Files
 ffmpeg.exe
 ffplay.exe
 ffprobe.exe
