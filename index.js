@@ -1,5 +1,5 @@
 const { CommandoClient } = require('discord.js-commando');
-const { Discord, Structures } = require('discord.js');
+const { MessageEmbed, Structures } = require('discord.js');
 require('dotenv').config();
 const path = require('path');
 const botToken = process.env.DISCORDTOKEN;
@@ -55,10 +55,10 @@ mercchan.on('voiceStateUpdate', async (oldState, newState) => {
       const title = newState.member.roles.highest.name;
       const channel = await mercchan.channels.fetch('731692862323818538');
 
-      let embed = new Discord.MessageEmbed()
-        .setTitle(`${title} ${user.username} Joined Wanting To Play`)
-        .setColor(newState.member.roles.highest.hexColor)
-        .setThumbnail(await user.avatarURL());
+      let embed = new MessageEmbed();
+      embed.setTitle(`${title} ${user.username} Joined Wanting To Play`);
+      embed.setColor(newState.member.roles.highest.hexColor);
+      embed.setThumbnail(await user.avatarURL());
       await channel.send(embed);
     }
     if (
