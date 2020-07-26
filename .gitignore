@@ -1,5 +1,7 @@
 # Discord Token
 .env
+node_modules/
+jspm_packages/
 
 # Logs
 logs
