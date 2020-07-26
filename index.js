@@ -27,6 +27,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   let oldUserChannel = oldMember.voiceChannel;
   let newUserChannel = newMember.voiceChannel;
   const member = newMember.user.username;
+  const title = newMember.highestRole.name
   const channel = client.guilds
     .get('300763347312181248')
     .channels.get('731692862323818538');
@@ -36,8 +37,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     oldUserChannel !== '👋 Wanting To Play 👋'
   ) {
     let embed = new Discord.RichEmbed()
-      .setTitle(`${member} Joined Wanting To Play`)
-      .setDescription(newMember.highestRole.name)
+      .setTitle(`${title} ${member} Joined Wanting To Play`)
       .setColor(newMember.colorRole.hexColor)
       .setThumbnail(newMember.user.avatarURL);
     channel.send(embed).catch((err) => console.log(err));
