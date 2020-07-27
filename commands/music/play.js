@@ -33,8 +33,7 @@ module.exports = class PlayCommand extends Command {
 
   async run(message, { query }) {
     const voiceChannel = message.member.voice.channel;
-    console.log(message.guild.musicData);
-    if (!voiceChannel) return message.say("Join a channel and try again");
+    if (!voiceChannel) return message.say("You must be in a voice channel");
 
     if (
       // if the user entered a youtube playlist url
@@ -57,19 +56,9 @@ module.exports = class PlayCommand extends Command {
         } else {
           try {
             const video = await videosObj[i].fetch();
-            // this can be uncommented if you choose to limit the queue
-            // if (message.guild.musicData.queue.length < 10) {
-            //
-
             message.guild.musicData.queue.push(
               constructSongObj(video, voiceChannel)
             );
-
-            // } else {
-            //   return message.say(
-            //     `I can't play the full playlist because there will be more than 10 songs in queue`
-            //   );
-            // }
           } catch (err) {
             console.error(err);
           }
@@ -96,19 +85,8 @@ module.exports = class PlayCommand extends Command {
           "There was a problem getting the video you provided!"
         );
       });
-      // // can be uncommented if you don't want the bot to play live streams
-      // if (video.raw.snippet.liveBroadcastContent === 'live') {
-      //   return message.say("I don't support live streams!");
-      // }
-      // // can be uncommented if you don't want the bot to play videos longer than 1 hour
-      // if (video.duration.hours !== 0) {
+      //if (video.duration.hours !== 0) {
       //   return message.say('I cannot play videos longer than 1 hour');
-      // }
-      // // can be uncommented if you want to limit the queue
-      // if (message.guild.musicData.queue.length > 10) {
-      //   return message.say(
-      //     'There are too many songs in the queue already, skip or wait a bit'
-      //   );
       // }
       message.guild.musicData.queue.push(constructSongObj(video, voiceChannel));
       if (
@@ -142,7 +120,7 @@ function playSong(queue, message) {
         })
         .on("finish", function () {
           if (queue.length >= 1) {
-            return classThis.playSong(queue, message);
+            return playSong(queue, message);
           } else {
             message.guild.musicData.isPlaying = false;
             message.guild.musicData.nowPlaying = null;
