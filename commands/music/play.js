@@ -8,7 +8,7 @@ module.exports = class PlayCommand extends Command {
   constructor(client) {
     super(client, {
       name: "play",
-      aliases: ["play-song", "add"],
+      aliases: ["play-list"],
       memberName: "play",
       group: "music",
       description: "Play any song or playlist from youtube",
@@ -31,9 +31,18 @@ module.exports = class PlayCommand extends Command {
     });
   }
 
+  //Set permissions
+  hasPermission(message) {
+    const approvedRoles = ["💎 Premium Members", "⚔️ Commander"];
+    const title = message.member.roles.highest.name;
+    if (approvedRoles.includes(title)) return true;
+    return "Command for Premium Members Only";
+  }
+
   async run(message, { query }) {
     const voiceChannel = message.member.voice.channel;
-    if (!voiceChannel) return message.say("You must be in a voice channel");
+    if (!voiceChannel)
+      return message.say("You must be in a voice channel to use this command");
 
     if (
       // if the user entered a youtube playlist url
