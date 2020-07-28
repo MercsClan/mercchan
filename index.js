@@ -56,7 +56,11 @@ mercchan.on('voiceStateUpdate', async (oldState, newState) => {
       const channel = await mercchan.channels.fetch('731692862323818538');
 
       let embed = new MessageEmbed();
-      embed.setTitle(`${title} ${user.username} Joined Wanting To Play`);
+      if (title === '@everyone') {
+        embed.setTitle(`${user.username} Joined Wanting To Play`);
+      } else {
+        embed.setTitle(`${title} ${user.username} Joined Wanting To Play`);
+      }
       embed.setColor(newState.member.roles.highest.hexColor);
       embed.setThumbnail(await user.avatarURL());
       await channel.send(embed);
