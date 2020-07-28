@@ -1,38 +1,38 @@
-const { Command } = require("discord.js-commando");
+const { Command } = require('discord.js-commando');
 
 module.exports = class LeaveCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "leave",
-      aliases: ["end"],
-      group: "music",
-      memberName: "leave",
+      name: 'leave',
+      aliases: ['end'],
+      group: 'music',
+      memberName: 'leave',
       guildOnly: true,
-      description: "Leaves voice channel if in one",
+      description: 'Leaves voice channel if in one',
     });
   }
 
   //Set permissions
   hasPermission(message) {
-    const approvedRoles = ["💎 Premium Members", "⚔️ Commander"];
+    const approvedRoles = ['💎 Premium Members', '⚔️ Commander'];
     const title = message.member.roles.highest.name;
     if (approvedRoles.includes(title)) return true;
-    return "Command for Premium Members Only";
+    return 'Command for Premium Members Only';
   }
 
   run(message) {
     var voiceChannel = message.member.voice.channel;
     if (!voiceChannel) {
-      message.reply("Join a channel and try again");
+      message.reply('Join a channel and try again');
       return;
     } else if (
-      typeof message.guild.musicData.songDispatcher == "undefined" ||
+      typeof message.guild.musicData.songDispatcher == 'undefined' ||
       message.guild.musicData.songDispatcher == null
     ) {
-      message.reply("There is no song playing right now!");
+      message.reply('There is no song playing right now!');
       return;
     } else if (!message.guild.musicData.queue) {
-      message.reply("There are no songs in queue");
+      message.reply('There are no songs in queue');
       return;
     } else if (message.guild.musicData.songDispatcher.paused) {
       message.guild.musicData.songDispatcher.resume();
