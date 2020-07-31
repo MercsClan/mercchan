@@ -13,6 +13,10 @@ module.exports = class reboot extends Command {
       clientPermissions: ['SPEAK', 'CONNECT'],
     });
   }
+  hasPermission(message) {
+    if (message.member.roles.highest.name.includes('⚔️ Commander')) return true;
+    return 'Command for Premium Members Only';
+  }
 
   run(message) {
     process.exit(0);
