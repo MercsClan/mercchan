@@ -32,6 +32,7 @@ mercchan.registry
     ['music', 'Music Commands'],
     ['games', 'Games'],
     ['other', 'Other Commands'],
+    ['utilities', 'Utilities'],
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
