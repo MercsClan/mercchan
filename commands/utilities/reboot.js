@@ -27,7 +27,7 @@ module.exports = class reboot extends Command {
     axios({
       method: 'post',
       url: `${postSite}/command`,
-      headers: { 'contenct-type': 'application/x-www-form-urlencoded' },
+      headers: { 'content-type': 'application/json' },
       data: {
         cli: 'pm2',
         action: 'restart',
