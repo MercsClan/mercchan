@@ -53,10 +53,6 @@ module.exports = class eventCommand extends Command {
     { queryGame, queryPlayerNum, queryEventDay, queryEventTime }
   ) {
     const embed = new MessageEmbed();
-    const eventTime = queryEventTime;
-    const eventDay = queryEventDay;
-    const eventGame = queryGame;
-    const eventPlayers = queryPlayerNum;
 
     const baseURL = 'https://api-v3.igdb.com';
 
@@ -68,19 +64,19 @@ module.exports = class eventCommand extends Command {
         },
         params: {
           fields: 'name, cover.url',
-          search: eventGame,
+          search: queryGame,
         },
       })
       .then((response) => {
-        embed.setTitle(`${eventGame} Event`);
+        embed.setTitle(`${queryGame} Event`);
         if (response.data.length > 0) {
           const coverart = `https:${response.data[0].cover.url}`;
           embed.setThumbnail(coverart);
         }
         embed.setColor('#bb070e');
         embed.addFields(
-          { name: 'When:', value: `${eventDay} at ${eventTime}` },
-          { name: 'Number of Players:', value: eventPlayers }
+          { name: 'When:', value: `${queryEventDay} at ${queryEventTime}` },
+          { name: 'Number of Players:', value: queryPlayerNum }
         );
         embed.addField('\u200b', 'Drop us an emoji if you can make it');
         embed.setFooter(`Event created by: ${message.author.username}`);
