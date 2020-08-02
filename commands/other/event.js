@@ -40,6 +40,14 @@ module.exports = class eventCommand extends Command {
       ],
     });
   }
+
+  hasPermission(message) {
+    const approvedRoles = ['🛡 Division Commander', '⚔️ Commander'];
+    const title = message.member.roles.highest.name;
+    if (approvedRoles.includes(title)) return true;
+    return 'Only Division Commanders and above may create events.';
+  }
+
   async run(
     message,
     { queryGame, queryPlayerNum, queryEventDay, queryEventTime }
