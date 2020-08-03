@@ -82,7 +82,8 @@ module.exports = class eventCommand extends Command {
         ` ${eventTimePeriod}`
       );
     }
-    eventTime = dayjs(`${eventDate} ${eventTime}`).format('h:mm A');
+    const eventDateTime = dayjs(`${eventDate} ${eventTime}`);
+    eventTime = dayjs(eventDateTime).format('h:mm A');
     console.log(eventTime);
 
     const embed = new MessageEmbed();
