@@ -4,12 +4,15 @@ const { default: Axios } = require('axios');
 require('dotenv').config();
 const APIKey = process.env.IGDB_API_KEY;
 const axios = require('axios');
+const dayjs = require('dayjs');
+const db = require('./../../Firebase/firebase.js');
+//const firebase = require('firebase');
 
 module.exports = class eventCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'event',
-      aliases: ['trourney', 'party'],
+      aliases: ['party', 'tournament'],
       group: 'other',
       memberName: 'event',
       description: 'Announces a server event',
@@ -23,7 +26,7 @@ module.exports = class eventCommand extends Command {
           type: 'string',
         },
         {
-          key: 'queryPlayerNum',
+          key: 'queryEventCapacity',
           prompt: 'How many players?',
           type: 'integer',
         },
@@ -50,12 +53,51 @@ module.exports = class eventCommand extends Command {
 
   async run(
     message,
-    { queryGame, queryPlayerNum, queryEventDay, queryEventTime }
+    { queryGame, queryEventCapacity, queryEventDay, queryEventTime }
   ) {
+    let eventDate;
+
+    if (queryEventDay.toLowerCase() === 'today') {
+      eventDate = dayjs().format('MM/DD/YYYY');
+    } else if (queryEventDay.toLowerCase() === 'tomorrow') {
+      eventDate = dayjs().add(1, 'day').format('MM/DD/YYYY');
+    } else {
+      eventDate = dayjs(queryEventDay)
+        .year(dayjs().year())
+        .format('MM/DD/YYYY');
+    }
+
+    let eventTime;
+    let eventTimeHour;
+    let eventTimeMinute;
+
+    const eventTimePeriod =
+      queryEventTime[queryEventTime.length - 2] +
+      queryEventTime[queryEventTime.length - 1];
+
+    if (!queryEventTime.includes(':')) {
+      eventTimeHour = queryEventTime.replace(eventTimePeriod, '');
+      eventTimeMinute = '00';
+      eventTime = queryEventTime.replace(
+        eventTimePeriod,
+        `:00 ${eventTimePeriod}`
+      );
+    } else {
+      eventTime = queryEventTime.replace(
+        eventTimePeriod,
+        ` ${eventTimePeriod}`
+      );
+      const tempTime = queryEventTime.split(':');
+      eventTimeHour = tempTime[0];
+      eventTimeMinute = tempTime[1].replace(eventTimePeriod, '');
+    }
+
+    //TODO: Do we need an expiration field?
+    //eventTime = dayjs(eventDateTime).format('h:mm A');
+    //const eventExpiration = dayjs(eventDateTime).add('day', 7);
+
     const embed = new MessageEmbed();
-
     const baseURL = 'https://api-v3.igdb.com';
-
     await axios
       .get(`${baseURL}/games`, {
         headers: {
@@ -75,15 +117,45 @@ module.exports = class eventCommand extends Command {
         }
         embed.setColor('#bb070e');
         embed.addFields(
-          { name: 'When:', value: `${queryEventDay} at ${queryEventTime}` },
-          { name: 'Number of Players:', value: queryPlayerNum }
+          {
+            name: 'When:',
+            value: dayjs(eventDate).format('dddd, MMM D'),
+            inline: true,
+          },
+          {
+            name: '\u200b',
+            value: eventTime,
+            inline: true,
+          }
         );
+        embed.addField('Number of Players:', queryEventCapacity);
         embed.addField('\u200b', 'Drop us an emoji if you can make it');
         embed.setFooter(`Event created by: ${message.author.username}`);
       })
       .catch((error) => {
         console.log('Something went wrong');
       });
-    message.embed(embed);
+
+    let eventDateTime = dayjs(eventDate);
+    eventDateTime = dayjs(eventDateTime).set('hour', eventTimeHour);
+    eventDateTime = dayjs(eventDateTime).set('minute', eventTimeMinute);
+
+    const dateDB = dayjs(eventDateTime).toISOString();
+    console.log(dateDB);
+
+    //Test Channel
+    //const channelID = '739860151573413888';
+    //Events Channel
+    const channelID = '739295017855746119';
+    const channel = message.guild.channels.cache.get(channelID);
+
+    //TODO: Needs to be the message ID of the message in the Events channel
+    const dbDOC = message.id;
+
+    db.collection('events').doc(dbDOC).set({
+      capcity: queryEventCapacity,
+      date: dateDB,
+      game: queryGame,
+    });
   }
 };

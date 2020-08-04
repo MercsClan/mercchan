@@ -3,6 +3,7 @@ const { MessageEmbed, Structures } = require('discord.js');
 require('dotenv').config();
 const path = require('path');
 const botToken = process.env.DISCORDTOKEN;
+const owner = process.env.OWNER;
 
 Structures.extend('Guild', function (Guild) {
   class MercsGuild extends Guild {
@@ -22,7 +23,7 @@ Structures.extend('Guild', function (Guild) {
 
 const mercchan = new CommandoClient({
   commandPrefix: '!',
-  owner: '156444313058803712',
+  owner: owner,
 });
 
 mercchan.registry
