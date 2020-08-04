@@ -105,6 +105,7 @@ dist
 .tern-port
 
 # FFMPEG Windows Files
-ffmpeg.exe
-ffplay.exe
-ffprobe.exe
+ffmpeg/
+
+# Firebase
+firebaseServiceAccount.json

@@ -5,6 +5,8 @@ require('dotenv').config();
 const APIKey = process.env.IGDB_API_KEY;
 const axios = require('axios');
 const dayjs = require('dayjs');
+const db = require('./../../Firebase/firebase.js');
+//const firebase = require('firebase');
 
 module.exports = class eventCommand extends Command {
   constructor(client) {
@@ -54,24 +56,28 @@ module.exports = class eventCommand extends Command {
     { queryGame, queryEventCapacity, queryEventDay, queryEventTime }
   ) {
     let eventDate;
-    queryEventDay.toLowerCase();
+
     if (queryEventDay.toLowerCase() === 'today') {
       eventDate = dayjs().format('MM/DD/YYYY');
-      //console.log(eventDate);
     } else if (queryEventDay.toLowerCase() === 'tomorrow') {
       eventDate = dayjs().add(1, 'day').format('MM/DD/YYYY');
-      //console.log(eventDate);
     } else {
       eventDate = dayjs(queryEventDay)
         .year(dayjs().year())
         .format('MM/DD/YYYY');
-      //console.log(eventDate);
     }
+
     let eventTime;
+    let eventTimeHour;
+    let eventTimeMinute;
+
     const eventTimePeriod =
       queryEventTime[queryEventTime.length - 2] +
       queryEventTime[queryEventTime.length - 1];
+
     if (!queryEventTime.includes(':')) {
+      eventTimeHour = queryEventTime.replace(eventTimePeriod, '');
+      eventTimeMinute = '00';
       eventTime = queryEventTime.replace(
         eventTimePeriod,
         `:00 ${eventTimePeriod}`
@@ -81,10 +87,14 @@ module.exports = class eventCommand extends Command {
         eventTimePeriod,
         ` ${eventTimePeriod}`
       );
+      const tempTime = queryEventTime.split(':');
+      eventTimeHour = tempTime[0];
+      eventTimeMinute = tempTime[1].replace(eventTimePeriod, '');
     }
-    const eventDateTime = dayjs(`${eventDate} ${eventTime}`);
-    eventTime = dayjs(eventDateTime).format('h:mm A');
-    console.log(eventTime);
+
+    //TODO: Do we need an expiration field?
+    //eventTime = dayjs(eventDateTime).format('h:mm A');
+    //const eventExpiration = dayjs(eventDateTime).add('day', 7);
 
     const embed = new MessageEmbed();
     const baseURL = 'https://api-v3.igdb.com';
@@ -125,6 +135,27 @@ module.exports = class eventCommand extends Command {
       .catch((error) => {
         console.log('Something went wrong');
       });
-    message.embed(embed);
+
+    let eventDateTime = dayjs(eventDate);
+    eventDateTime = dayjs(eventDateTime).set('hour', eventTimeHour);
+    eventDateTime = dayjs(eventDateTime).set('minute', eventTimeMinute);
+
+    const dateDB = dayjs(eventDateTime).toISOString();
+    console.log(dateDB);
+
+    //Test Channel
+    //const channelID = '739860151573413888';
+    //Events Channel
+    const channelID = '739295017855746119';
+    const channel = message.guild.channels.cache.get(channelID);
+
+    //TODO: Needs to be the message ID of the message in the Events channel
+    const dbDOC = message.id;
+
+    db.collection('events').doc(dbDOC).set({
+      capcity: queryEventCapacity,
+      date: dateDB,
+      game: queryGame,
+    });
   }
 };
