@@ -148,6 +148,7 @@ module.exports = class eventCommand extends Command {
     //Events Channel
     const channelID = '739295017855746119';
     const channel = message.guild.channels.cache.get(channelID);
+    channel.send(embed);
 
     //TODO: Needs to be the message ID of the message in the Events channel
     const dbDOC = message.id;
