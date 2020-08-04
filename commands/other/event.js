@@ -45,7 +45,7 @@ module.exports = class eventCommand extends Command {
   }
 
   hasPermission(message) {
-    const approvedRoles = ['🛡 Division Commander', '⚔️ Commander'];
+    const approvedRoles = ['⚔️ Commander'];
     const title = message.member.roles.highest.name;
     if (approvedRoles.includes(title)) return true;
     return 'Only Division Commanders and above may create events.';
@@ -136,27 +136,59 @@ module.exports = class eventCommand extends Command {
         console.log('Something went wrong');
       });
 
+    //Convert Date and Time for the DB
     let eventDateTime = dayjs(eventDate);
     eventDateTime = dayjs(eventDateTime).set('hour', eventTimeHour);
     eventDateTime = dayjs(eventDateTime).set('minute', eventTimeMinute);
-
     const dateDB = dayjs(eventDateTime).toISOString();
-    console.log(dateDB);
 
     //Test Channel
     //const channelID = '739860151573413888';
     //Events Channel
     const channelID = '739295017855746119';
+
     const channel = message.guild.channels.cache.get(channelID);
-    channel.send(embed);
+    const sentMessage = await channel.send(embed);
+    console.log('Message Sent');
+
+    const eventRole = `event_${queryGame}`;
+    const eventChannel = eventRole;
+
+    // Creates a new role for the event
+    await message.guild.roles.create({
+      data: { name: eventRole, permissions: [] },
+    });
+
+    const eventRoleObj = message.guild.roles.cache.find(
+      (role) => role.name === eventRole
+    );
+
+    // Creates a new text channel for the event
+    await message.guild.channels.create(eventChannel, {
+      type: 'text',
+      parent: '740294137286492271',
+      permissionOverwrites: [
+        {
+          id: message.guild.id,
+          deny: ['VIEW_CHANNEL'],
+        },
+        {
+          id: eventRoleObj,
+          allow: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+        },
+      ],
+    });
 
     //TODO: Needs to be the message ID of the message in the Events channel
-    const dbDOC = message.id;
+    const dbDOC = sentMessage.id;
 
+    // Send Event to the Database
     db.collection('events').doc(dbDOC).set({
       capcity: queryEventCapacity,
       date: dateDB,
       game: queryGame,
+      role: eventRole,
+      eventID: eventRoleObj.id,
     });
   }
 };
