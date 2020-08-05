@@ -40,6 +40,12 @@ module.exports = class eventCommand extends Command {
           prompt: 'What Time?',
           type: 'string',
         },
+        {
+          key: 'testMode',
+          prompt: '',
+          type: 'string',
+          default: '',
+        },
       ],
     });
   }
@@ -53,8 +59,9 @@ module.exports = class eventCommand extends Command {
 
   async run(
     message,
-    { queryGame, queryEventCapacity, queryEventDay, queryEventTime }
+    { queryGame, queryEventCapacity, queryEventDay, queryEventTime, testMode }
   ) {
+    console.log(testMode);
     let eventDate;
 
     if (queryEventDay.toLowerCase() === 'today') {
@@ -142,10 +149,13 @@ module.exports = class eventCommand extends Command {
     eventDateTime = dayjs(eventDateTime).set('minute', eventTimeMinute);
     const dateDB = dayjs(eventDateTime).toISOString();
 
-    //Test Channel
-    //const channelID = '739860151573413888';
-    //Events Channel
-    const channelID = '739295017855746119';
+    let channelID;
+    if (testMode) {
+      channelID = '739860151573413888';
+    } else {
+      //channelID = '739295017855746119';
+      channelID = '739860151573413888';
+    }
 
     const channel = message.guild.channels.cache.get(channelID);
     const sentMessage = await channel.send(embed);
@@ -154,41 +164,66 @@ module.exports = class eventCommand extends Command {
     const eventRole = `event_${queryGame}`;
     const eventChannel = eventRole;
 
-    // Creates a new role for the event
-    await message.guild.roles.create({
-      data: { name: eventRole, permissions: [] },
+    if (!testMode) {
+      // Creates a new role for the event
+      await message.guild.roles.create({
+        data: { name: eventRole, permissions: [] },
+      });
+
+      const eventRoleObj = await message.guild.roles.cache.find(
+        (role) => role.name === eventRole
+      );
+
+      // Creates a new text channel for the event
+      await message.guild.channels.create(eventChannel, {
+        type: 'text',
+        parent: '740294137286492271',
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ['VIEW_CHANNEL'],
+          },
+          {
+            id: eventRoleObj,
+            allow: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+          },
+        ],
+      });
+
+      // Send Event to the Database
+      const dbDOC = sentMessage.id;
+      db.collection('events').doc(dbDOC).set({
+        capcity: queryEventCapacity,
+        date: dateDB,
+        game: queryGame,
+        role: eventRole,
+        eventID: eventRoleObj.id,
+      });
+    }
+    //TODO: Add command to make emoji customizable
+    const emoji = message.guild.emojis.cache.get('394883427205120011');
+    const filter = (reaction, user) => {
+      return reaction.emoji === emoji;
+    };
+    const collector = await sentMessage.createReactionCollector(filter, {
+      time: 150000,
+    });
+    collector.on('collect', (reaction, user) => {
+      console.log(`Collected ${reaction.emoji.name} from ${user.name}`);
+      try {
+        //This needs to be passed in
+        const eventRoleObj = message.guild.roles.cache.find(
+          (role) => role.name === eventRole
+        );
+        //this throws an error on add
+        //user.roles.add(eventRoleObj);
+      } catch {
+        console.log(console.error);
+      }
     });
 
-    const eventRoleObj = message.guild.roles.cache.find(
-      (role) => role.name === eventRole
-    );
-
-    // Creates a new text channel for the event
-    await message.guild.channels.create(eventChannel, {
-      type: 'text',
-      parent: '740294137286492271',
-      permissionOverwrites: [
-        {
-          id: message.guild.id,
-          deny: ['VIEW_CHANNEL'],
-        },
-        {
-          id: eventRoleObj,
-          allow: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
-        },
-      ],
-    });
-
-    //TODO: Needs to be the message ID of the message in the Events channel
-    const dbDOC = sentMessage.id;
-
-    // Send Event to the Database
-    db.collection('events').doc(dbDOC).set({
-      capcity: queryEventCapacity,
-      date: dateDB,
-      game: queryGame,
-      role: eventRole,
-      eventID: eventRoleObj.id,
+    collector.on('end', (collected) => {
+      console.log(`Collected ${collected.size} items`);
     });
   }
 };
