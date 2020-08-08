@@ -4,7 +4,7 @@ const fetchStats = require('../../utils/RocketLeague');
 const axios = require('axios');
 require('dotenv').config();
 
-module.exports = class ITADCommand extends Command {
+module.exports = class RocketCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'rocketleague',
