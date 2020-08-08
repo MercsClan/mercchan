@@ -39,12 +39,13 @@ module.exports = class ITADCommand extends Command {
     );
     let stats = await fetchStats(query);
     if (stats !== null) {
-      embed.addField('Wins', stats.stats.wins, true);
-      embed.addField('MVPs', stats.stats.mvps, true);
-      embed.addField('Goals', stats.stats.goals, true);
-      embed.addField('Saves', stats.stats.saves, true);
-      embed.addField('Shots', stats.stats.shots, true);
-      embed.addField('Assists', stats.stats.assists, true);
+      for (const stat in stats.stats) {
+        embed.addField(stat, stats.stats[stat], true);
+      }
+      for (const gametype in stats.ranks) {
+        const fieldValue = `**${stats.ranks[gametype].rank}** \n Division: ${stats.ranks[gametype].div}\n MMR:${stats.ranks[gametype].mmr}\n `;
+        embed.addField(gametype, fieldValue, true);
+      }
     } else {
       embed.setTitle('Something went wrong, check your SteamID');
     }
