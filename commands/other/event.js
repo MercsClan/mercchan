@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, GuildMember, MessageManager } = require('discord.js');
 const { default: Axios } = require('axios');
 require('dotenv').config();
 const APIKey = process.env.IGDB_API_KEY;
@@ -166,13 +166,13 @@ module.exports = class eventCommand extends Command {
 
     if (!testMode) {
       // Creates a new role for the event
-      await message.guild.roles.create({
+      const eventRoleObj = await message.guild.roles.create({
         data: { name: eventRole, permissions: [] },
       });
 
-      const eventRoleObj = await message.guild.roles.cache.find(
-        (role) => role.name === eventRole
-      );
+      // const eventRoleObj = await message.guild.roles.cache.find(
+      //   (role) => role.name === eventRole
+      // );
 
       // Creates a new text channel for the event
       await message.guild.channels.create(eventChannel, {
@@ -200,30 +200,31 @@ module.exports = class eventCommand extends Command {
         eventID: eventRoleObj.id,
       });
     }
+
     //TODO: Add command to make emoji customizable
     const emoji = message.guild.emojis.cache.get('394883427205120011');
     const filter = (reaction, user) => {
       return reaction.emoji === emoji;
     };
+
     const collector = await sentMessage.createReactionCollector(filter, {
-      time: 150000,
-    });
-    collector.on('collect', (reaction, user) => {
-      console.log(`Collected ${reaction.emoji.name} from ${user.name}`);
-      try {
-        //This needs to be passed in
-        const eventRoleObj = message.guild.roles.cache.find(
-          (role) => role.name === eventRole
-        );
-        //this throws an error on add
-        //user.roles.add(eventRoleObj);
-      } catch {
-        console.log(console.error);
-      }
+      max: queryEventCapacity + 10,
     });
 
-    collector.on('end', (collected) => {
-      console.log(`Collected ${collected.size} items`);
+    await collector.on('collect', (reaction, user) => {
+      console.log(`Collected ${reaction.emoji.name} from ${user}`);
+
+      let nUser = message.guild.members.fetch(user);
+      nUser.roles
+        .add(eventRoleObj)
+        .then((res) => console.log(res))
+        .catch((error) => {
+          console.log(error);
+        });
     });
+
+    // collector.on('end', (collected) => {
+    //   console.log(`Collected ${collected.size} items`);
+    // });
   }
 };
