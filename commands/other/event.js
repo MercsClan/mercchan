@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, GuildMember, MessageManager } = require('discord.js');
 const { default: Axios } = require('axios');
 require('dotenv').config();
 const APIKey = process.env.IGDB_API_KEY;
@@ -40,6 +40,12 @@ module.exports = class eventCommand extends Command {
           prompt: 'What Time?',
           type: 'string',
         },
+        {
+          key: 'testMode',
+          prompt: '',
+          type: 'string',
+          default: '',
+        },
       ],
     });
   }
@@ -53,8 +59,9 @@ module.exports = class eventCommand extends Command {
 
   async run(
     message,
-    { queryGame, queryEventCapacity, queryEventDay, queryEventTime }
+    { queryGame, queryEventCapacity, queryEventDay, queryEventTime, testMode }
   ) {
+    console.log(testMode);
     let eventDate;
 
     if (queryEventDay.toLowerCase() === 'today') {
@@ -142,53 +149,74 @@ module.exports = class eventCommand extends Command {
     eventDateTime = dayjs(eventDateTime).set('minute', eventTimeMinute);
     const dateDB = dayjs(eventDateTime).toISOString();
 
-    //Test Channel
-    //const channelID = '739860151573413888';
-    //Events Channel
-    const channelID = '739295017855746119';
+    let channelID;
+    if (testMode) {
+      channelID = '739860151573413888';
+    } else {
+      //channelID = '739295017855746119';
+      channelID = '739860151573413888';
+    }
 
     const channel = message.guild.channels.cache.get(channelID);
     const sentMessage = await channel.send(embed);
+
     console.log('Message Sent');
 
     const eventRole = `event_${queryGame}`;
     const eventChannel = eventRole;
 
-    // Creates a new role for the event
-    await message.guild.roles.create({
-      data: { name: eventRole, permissions: [] },
-    });
+    if (!testMode) {
+      // Creates a new role for the event
+      const eventRoleObj = await message.guild.roles.create({
+        data: { name: eventRole, permissions: [] },
+      });
 
-    const eventRoleObj = message.guild.roles.cache.find(
-      (role) => role.name === eventRole
+      // const eventRoleObj = await message.guild.roles.cache.find(
+      //   (role) => role.name === eventRole
+      // );
+
+      await message.guild.channels.create(eventChannel, {
+        type: 'text',
+        parent: '740294137286492271',
+        permissionOverwrites: [
+          {
+            id: message.guild.id,
+            deny: ['VIEW_CHANNEL'],
+          },
+          {
+            id: eventRoleObj,
+            allow: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+          },
+        ],
+      });
+
+      // Send Event to the Database
+      const dbDOC = sentMessage.id;
+      db.collection('events').doc(dbDOC).set({
+        capcity: queryEventCapacity,
+        date: dateDB,
+        game: queryGame,
+        role: eventRole,
+        eventID: eventRoleObj.id,
+      });
+    }
+
+    //TODO: Add command to make emoji customizable
+    const emoji = message.guild.emojis.cache.get('394883427205120011');
+    const filter = (reaction, user) => {
+      return reaction.emoji === emoji;
+    };
+    await sentMessage.react(emoji);
+    const joinEvent = sentMessage.createReactionCollector(
+      (reaction, user) => reaction.emoji === emoji
     );
 
-    // Creates a new text channel for the event
-    await message.guild.channels.create(eventChannel, {
-      type: 'text',
-      parent: '740294137286492271',
-      permissionOverwrites: [
-        {
-          id: message.guild.id,
-          deny: ['VIEW_CHANNEL'],
-        },
-        {
-          id: eventRoleObj,
-          allow: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
-        },
-      ],
-    });
-
-    //TODO: Needs to be the message ID of the message in the Events channel
-    const dbDOC = sentMessage.id;
-
-    // Send Event to the Database
-    db.collection('events').doc(dbDOC).set({
-      capcity: queryEventCapacity,
-      date: dateDB,
-      game: queryGame,
-      role: eventRole,
-      eventID: eventRoleObj.id,
+    joinEvent.on('collect', async (reaction, user) => {
+      let nUser = await sentMessage.guild.members.fetch(user);
+      const eventRoleObj = await message.guild.roles.cache.find(
+        (role) => role.name === eventRole
+      );
+      nUser.roles.add(eventRoleObj);
     });
   }
 };
