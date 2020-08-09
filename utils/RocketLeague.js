@@ -30,11 +30,36 @@ async function fetchStats(playerName) {
     const htmlTagRegex = /<(.*?)>/g;
 
     //Parse ranks
-    let soloduelrank = ranks[9].replace(htmlTagRegex, '');
-    let solodueldiv = ranks[15].replace(htmlTagRegex, '');
-    let soloduelmmr = ranks[21].replace(htmlTagRegex, '');
-    let doublesrank = ranks[9].replace(htmlTagRegex, '');
-    let doublesdiv = ranks[15].replace(htmlTagRegex, '');
+
+    let soloDuelRank = ranks[9].replace(htmlTagRegex, '');
+    let doublesRank = ranks[10].replace(htmlTagRegex, '');
+    let standardRank = ranks[11].replace(htmlTagRegex, '');
+    let soloStandardRank = ranks[12].replace(htmlTagRegex, '');
+
+    let soloDuelDiv = ranks[15].replace(htmlTagRegex, '');
+    let doublesDiv = ranks[16].replace(htmlTagRegex, '');
+    let standardDiv = ranks[17].replace(htmlTagRegex, '');
+    let soloStandardDiv = ranks[18].replace(htmlTagRegex, '');
+
+    let soloDuelMmr = ranks[21].replace(htmlTagRegex, '');
+    let doublesMmr = ranks[22].replace(htmlTagRegex, '');
+    let standardMmr = ranks[23].replace(htmlTagRegex, '');
+    let soloStandardMmr = ranks[24].replace(htmlTagRegex, '');
+
+    let hoopsRank = ranks[54].replace(htmlTagRegex, '');
+    let rumbleRank = ranks[55].replace(htmlTagRegex, '');
+    let dropShotRank = ranks[56].replace(htmlTagRegex, '');
+    let snowDayRank = ranks[57].replace(htmlTagRegex, '');
+
+    let hoopsDiv = ranks[60].replace(htmlTagRegex, '');
+    let rumbleDiv = ranks[61].replace(htmlTagRegex, '');
+    let dropShotDiv = ranks[62].replace(htmlTagRegex, '');
+    let snowDayDiv = ranks[63].replace(htmlTagRegex, '');
+
+    let hoopsMmr = ranks[66].replace(htmlTagRegex, '');
+    let rumbleMmr = ranks[67].replace(htmlTagRegex, '');
+    let dropShotMmr = ranks[68].replace(htmlTagRegex, '');
+    let snowDayMmr = ranks[69].replace(htmlTagRegex, '');
 
     const playerObject = {
       stats: {
@@ -47,44 +72,44 @@ async function fetchStats(playerName) {
       },
       ranks: {
         'Solo-Duel': {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: soloduelmmr,
+          rank: soloDuelRank,
+          div: soloDuelDiv,
+          mmr: soloDuelMmr,
         },
         Doubles: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: doublesRank,
+          div: doublesDiv,
+          mmr: doublesMmr,
         },
         Standard: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: standardRank,
+          div: standardDiv,
+          mmr: standardMmr,
         },
         'Solo-Standard': {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: soloStandardRank,
+          div: soloStandardDiv,
+          mmr: soloStandardMmr,
         },
         Rumble: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: rumbleRank,
+          div: rumbleDiv,
+          mmr: rumbleMmr,
         },
         DropShot: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: dropShotRank,
+          div: dropShotDiv,
+          mmr: dropShotMmr,
         },
         Hoops: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: hoopsRank,
+          div: hoopsDiv,
+          mmr: hoopsMmr,
         },
         SnowDay: {
-          rank: soloduelrank,
-          div: solodueldiv,
-          mmr: '500',
+          rank: snowDayRank,
+          div: snowDayDiv,
+          mmr: snowDayMmr,
         },
       },
     };

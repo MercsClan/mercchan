@@ -39,12 +39,12 @@ module.exports = class RocketCommand extends Command {
     );
     let stats = await fetchStats(query);
     if (stats !== null) {
+      for (const gametype in stats.ranks) {
+        const fieldValue = `**${stats.ranks[gametype].rank}** \n ${stats.ranks[gametype].div}\n MMR: ${stats.ranks[gametype].mmr}\n `;
+        embed.addField(gametype, fieldValue, true);
+      }
       for (const stat in stats.stats) {
         embed.addField(stat, stats.stats[stat], true);
-      }
-      for (const gametype in stats.ranks) {
-        const fieldValue = `**${stats.ranks[gametype].rank}** \n Division: ${stats.ranks[gametype].div}\n MMR:${stats.ranks[gametype].mmr}\n `;
-        embed.addField(gametype, fieldValue, true);
       }
     } else {
       embed.setTitle('Something went wrong, check your SteamID');
