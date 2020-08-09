@@ -175,7 +175,7 @@ module.exports = class eventCommand extends Command {
       //   (role) => role.name === eventRole
       // );
 
-      await message.guild.channels.create(eventChannel, {
+      const newChannel = await message.guild.channels.create(eventChannel, {
         type: 'text',
         parent: '740294137286492271',
         permissionOverwrites: [
@@ -197,7 +197,8 @@ module.exports = class eventCommand extends Command {
         date: dateDB,
         game: queryGame,
         role: eventRole,
-        eventID: eventRoleObj.id,
+        roleID: eventRoleObj.id,
+        channelID: newChannel.id,
       });
     }
 
