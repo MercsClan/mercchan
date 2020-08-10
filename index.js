@@ -2,6 +2,8 @@ const { CommandoClient } = require('discord.js-commando');
 const { MessageEmbed, Structures } = require('discord.js');
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
 const botToken = process.env.DISCORDTOKEN;
 const owner = process.env.OWNER;
 
@@ -41,9 +43,11 @@ mercchan.registry
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
-mercchan.once('ready', () => {
+mercchan.once('ready', async () => {
   console.log(`Logged in as ${mercchan.user.tag}, ${mercchan.user.id}`);
-  mercchan.user.setActivity('MercChan V2 Test');
+  mercchan.user.setActivity(`with your mom`);
+  const auditchannel = await mercchan.channels.fetch('367468320821215234');
+  await auditchannel.send(`MercChan Successfully Started on ${os.hostname()}`);
 });
 
 //Voice Channel State Change
