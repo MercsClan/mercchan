@@ -40,6 +40,7 @@ module.exports = class eventCommand extends Command {
 
     async function getExpiredEvents(db) {
       const expiredEvents = await eventsDB
+        .where('active')
         .where('date', '<', today.toISOString())
         .get()
         .catch((error) => {

@@ -6,7 +6,6 @@ const APIKey = process.env.IGDB_API_KEY;
 const axios = require('axios');
 const dayjs = require('dayjs');
 const db = require('../../Firebase/firebase.js');
-//const firebase = require('firebase');
 
 module.exports = class eventCommand extends Command {
   constructor(client) {
@@ -99,10 +98,6 @@ module.exports = class eventCommand extends Command {
       eventTimeMinute = tempTime[1].replace(eventTimePeriod, '');
     }
 
-    //TODO: Do we need an expiration field?
-    //eventTime = dayjs(eventDateTime).format('h:mm A');
-    //const eventExpiration = dayjs(eventDateTime).add('day', 7);
-
     const embed = new MessageEmbed();
     const baseURL = 'https://api-v3.igdb.com';
     await axios
@@ -171,13 +166,10 @@ module.exports = class eventCommand extends Command {
         data: { name: eventRole, permissions: [] },
       });
 
-      // const eventRoleObj = await message.guild.roles.cache.find(
-      //   (role) => role.name === eventRole
-      // );
-
       const newChannel = await message.guild.channels.create(eventChannel, {
         type: 'text',
         parent: '740294137286492271',
+        topic: `${queryGame} Event at ${eventTime} on ${eventDate}`,
         permissionOverwrites: [
           {
             id: message.guild.id,
@@ -199,6 +191,7 @@ module.exports = class eventCommand extends Command {
         role: eventRole,
         roleID: eventRoleObj.id,
         channelID: newChannel.id,
+        active: true,
       });
     }
 
