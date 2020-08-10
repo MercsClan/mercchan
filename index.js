@@ -33,6 +33,7 @@ mercchan.registry
     ['admin', 'Admin Commands'],
     ['music', 'Music Commands'],
     ['games', 'Games'],
+    ['events', 'Server Events'],
     ['other', 'Other Commands'],
     ['utilities', 'Utilities'],
   ])

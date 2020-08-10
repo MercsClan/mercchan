@@ -5,7 +5,7 @@ require('dotenv').config();
 const APIKey = process.env.IGDB_API_KEY;
 const axios = require('axios');
 const dayjs = require('dayjs');
-const db = require('./../../Firebase/firebase.js');
+const db = require('../../Firebase/firebase.js');
 //const firebase = require('firebase');
 
 module.exports = class eventCommand extends Command {
@@ -13,7 +13,7 @@ module.exports = class eventCommand extends Command {
     super(client, {
       name: 'event',
       aliases: ['party', 'tournament'],
-      group: 'other',
+      group: 'events',
       memberName: 'event',
       description: 'Announces a server event',
       examples: ['!event "game" "number of players" "day" "time"'],
