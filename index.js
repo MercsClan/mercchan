@@ -3,7 +3,6 @@ const { MessageEmbed, Structures } = require('discord.js');
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 const botToken = process.env.DISCORDTOKEN;
 const owner = process.env.OWNER;
 
@@ -43,56 +42,19 @@ mercchan.registry
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
-mercchan.once('ready', async () => {
-  console.log(`Logged in as ${mercchan.user.tag}, ${mercchan.user.id}`);
-  mercchan.user.setActivity(`with your mom`);
-  const auditchannel = await mercchan.channels.fetch('367468320821215234');
-  await auditchannel.send(`MercChan Successfully Started on ${os.hostname()}`);
-});
+const eventFiles = fs
+  .readdirSync('./events')
+  .filter((files) => files.endsWith('.js'));
 
-//Voice Channel State Change
-//WHEN JOIN 'WANTING TO PLAY' - EMBED MESSAGE IN CHANNEL
-mercchan.on('voiceStateUpdate', async (oldState, newState) => {
-  try {
-    if (
-      newState.channelID === '342428152645287947' &&
-      oldState.channelID !== '342428152645287947'
-    ) {
-      const user = newState.member.user;
-      const title = newState.member.roles.highest.name;
-      const channel = await mercchan.channels.fetch('731692862323818538');
-
-      let embed = new MessageEmbed();
-      if (title === '@everyone') {
-        embed.setTitle(`${user.username} Joined Wanting To Play`);
-      } else {
-        embed.setTitle(`${title} ${user.username} Joined Wanting To Play`);
-      }
-      embed.setColor(newState.member.roles.highest.hexColor);
-      embed.setThumbnail(await user.avatarURL());
-      await channel.send(embed);
-    }
-    if (
-      newState.member.user.bot &&
-      !newState.channelID &&
-      newState.guild.musicData.songDispatcher &&
-      newState.member.user.id == mercchan.user.id
-    ) {
-      newState.guild.musicData.queue.length = 0;
-      newState.guild.musicData.songDispatcher.end();
-      return;
-    }
-    if (
-      newState.member.user.bot &&
-      newState.channelID &&
-      newState.member.user.id == mercchan.user.id &&
-      !newState.selfDeaf
-    ) {
-      newState.setSelfDeaf(true);
-    }
-  } catch (err) {
-    console.log(err);
+for (const event of eventFiles) {
+  const events = require(`./events/${event}`);
+  const eventsName = event.split('.')[0];
+  if (eventsName === 'ready') {
+    mercchan.once(eventsName, events.bind(null, mercchan));
+  } else {
+    mercchan.on(eventsName, events.bind(null, mercchan));
+    console.log(`Loaded Event: ${eventsName}`);
   }
-});
+}
 
 mercchan.login(botToken);
