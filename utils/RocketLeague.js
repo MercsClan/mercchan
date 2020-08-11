@@ -5,7 +5,7 @@ const os = require('os');
 async function fetchStats(playerName) {
   try {
     let browser;
-    if (os.arch === 'arm') {
+    if (os.arch() === 'arm') {
       browser = await puppeteer.launch({
         executablePath: '/usr/bin/chromium-browser',
         headless: true,
