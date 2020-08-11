@@ -18,10 +18,6 @@ module.exports = class kill extends Command {
       hidden: true,
     });
   }
-  hasPermission(message) {
-    if (message.member.roles.highest.name.includes('⚔️ Commander')) return true;
-    return 'Commanders Only';
-  }
 
   run(message) {
     if (os.arch === 'arm') {
