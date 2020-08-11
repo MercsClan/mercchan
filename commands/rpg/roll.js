@@ -14,7 +14,7 @@ module.exports = class roll extends Command {
         duration: 5,
       },
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES'],
       args: [
         {
           key: 'dice',

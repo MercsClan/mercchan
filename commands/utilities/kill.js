@@ -14,7 +14,7 @@ module.exports = class kill extends Command {
       group: 'utilities',
       description: 'Stops MercChan',
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES'],
       hidden: true,
     });
   }
