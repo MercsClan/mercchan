@@ -13,7 +13,7 @@ module.exports = class reboot extends Command {
       group: 'utilities',
       description: 'Reboot MercChan',
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES'],
       hidden: true,
     });
   }

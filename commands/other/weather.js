@@ -17,7 +17,7 @@ module.exports = class weatherCommand extends Command {
         duration: 6,
       },
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES'],
       args: [
         {
           key: 'query',

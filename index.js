@@ -36,6 +36,7 @@ mercchan.registry
     ['events', 'Server Events'],
     ['other', 'Other Commands'],
     ['utilities', 'Utilities'],
+    ['rpg', 'Role Playing'],
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({

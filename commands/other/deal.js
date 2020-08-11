@@ -17,7 +17,7 @@ module.exports = class ITADCommand extends Command {
         duration: 15,
       },
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES'],
       args: [
         {
           key: 'query',
