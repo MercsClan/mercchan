@@ -15,6 +15,7 @@ module.exports = class PurgeCommand extends Command {
       },
       clientPermissions: ['READ_MESSAGE_HISTORY', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES'],
+      hidden: true,
       args: [
         {
           key: 'count',

@@ -1,9 +1,19 @@
 const puppeteer = require('puppeteer');
 const baseUrl = 'https://rlstats.net/profile/Steam/';
+const os = require('os');
 
 async function fetchStats(playerName) {
   try {
-    const browser = await puppeteer.launch();
+    let browser;
+    if (os.arch === 'arm') {
+      browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
+        headless: true,
+      });
+    } else {
+      browser = await puppeteer.launch();
+    }
+
     const page = await browser.newPage();
     await page.goto(`${baseUrl}${playerName}`);
     const result = await page.evaluate(() => {
