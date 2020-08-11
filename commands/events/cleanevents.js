@@ -7,7 +7,7 @@ module.exports = class eventCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'cleanevents',
-      aliases: ['cleanevent', 'removeoldevents', 'removeoldevent'],
+      aliases: ['cleanevent', 'r-events', 'c-events'],
       group: 'events',
       memberName: 'cleanevents',
       description: 'Removes Old Event Roles and Channels',
