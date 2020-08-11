@@ -23,7 +23,6 @@ module.exports = class reboot extends Command {
   }
 
   async run(message) {
-    //process.exit(0);
     axios({
       method: 'post',
       url: `${postSite}/command`,
