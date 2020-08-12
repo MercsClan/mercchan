@@ -17,7 +17,8 @@ module.exports = class eventCommand extends Command {
       description: 'Announces a server event',
       examples: ['!event "game" "number of players" "day" "time"'],
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['SEND_MESSAGES', 'ADD_REACTIONS', 'MANAGE_ROLES'],
+      hidden: true,
       args: [
         {
           key: 'queryGame',
@@ -50,7 +51,7 @@ module.exports = class eventCommand extends Command {
   }
 
   hasPermission(message) {
-    const approvedRoles = ['⚔️ Commander'];
+    const approvedRoles = ['⚔️ Commander', '🛡 Division Commander'];
     const title = message.member.roles.highest.name;
     if (approvedRoles.includes(title)) return true;
     return 'Only Division Commanders and above may create events.';

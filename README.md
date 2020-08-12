@@ -19,16 +19,21 @@ Mercs Discord Bot
 | **Events**    |                                |                                |                                               |
 | !event        | Game, # of players, Time, Date | COMMANDER / Division Commander | Creates a new event in the channel            |
 | !cleanevents  | Number of days past the event  | COMMANDER / Division Commander | Deletes Role and Channel associate with event |
-| **HIDDEN**    |                                |                                |                                               |
+| **RPG**       |                                |                                |                                               |
+| !roll         | [# of dice]d[size of dice]     | Anyone                         | Replies with dice rolls                       |
+| !coinflip     |                                | Anyone                         | Replies with a head or tails coin image       |
+| **Admin**     |                                |                                |                                               |
 | !reboot       |                                | COMMANDER                      | Sends webhook to reboot MercChan              |
 | !kill         |                                | COMMANDER                      | Kills MercChan Process                        |
 | !purge        | # (1-100)                      | COMMANDER                      | Deletes the last x messages from channel      |
+| !say          | title, announcement            | COMMANDER                      | Sands a message to the announcements channel  |
 
 ## Requirements
 
-DISCORDTOKEN  
-YOUTUBE API KEY  
-ISTHEREANYDEAL API KEY
-IGDB API KEY
+[Discord Token](https://discordapp.com/developers/applications/)  
+[Youtube API Key](https://developers.google.com/youtube/registering_an_application)  
+[IsThereAnyDeal API Key](https://isthereanydeal.com/apps/)  
+[IGDB API Key](https://www.igdb.com/api)  
+[Open Weather Map API Key](https://openweathermap.org/appid)
 
 See .env.example

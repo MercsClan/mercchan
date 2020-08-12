@@ -5,7 +5,7 @@ module.exports = class PurgeCommand extends Command {
     super(client, {
       name: 'purge',
       aliases: ['clear'],
-      group: 'utilities',
+      group: 'admin',
       memberName: 'purge',
       description: 'Deletes the last x messages from channel',
       guildOnly: true,

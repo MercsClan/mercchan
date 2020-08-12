@@ -13,7 +13,8 @@ module.exports = class eventCommand extends Command {
       description: 'Removes Old Event Roles and Channels',
       examples: ['!cleanevents 2'],
       guildOnly: true,
-      clientPermissions: ['SPEAK', 'CONNECT'],
+      clientPermissions: ['MANAGE_MESSAGES', 'MANAGE_ROLES'],
+      hidden: true,
       args: [
         {
           key: 'daysOld',
@@ -25,10 +26,10 @@ module.exports = class eventCommand extends Command {
   }
 
   hasPermission(message) {
-    const approvedRoles = ['⚔️ Commander'];
+    const approvedRoles = ['⚔️ Commander', '🛡 Division Commander'];
     const title = message.member.roles.highest.name;
     if (approvedRoles.includes(title)) return true;
-    return 'Only Division Commanders and above may create events.';
+    return 'Only Division Commanders and above may remove events.';
   }
 
   async run(message, { daysOld }) {
