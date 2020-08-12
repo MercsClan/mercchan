@@ -6,7 +6,7 @@ module.exports = class sayCommand extends Command {
     super(client, {
       name: 'say',
       aliases: ['announce'],
-      group: 'utilities',
+      group: 'admin',
       memberName: 'say',
       description: 'Makes a server announcement',
       examples: ['!say "title" "announcement"'],

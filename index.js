@@ -30,13 +30,12 @@ const mercchan = new CommandoClient({
 mercchan.registry
   .registerDefaultTypes()
   .registerGroups([
-    ['admin', 'Admin Commands'],
-    ['music', 'Music Commands'],
+    ['other', 'Helpful Commands'],
     ['games', 'Games'],
-    ['events', 'Server Events'],
-    ['other', 'Other Commands'],
-    ['utilities', 'Utilities'],
     ['rpg', 'Role Playing'],
+    ['admin', 'Admin Commands'],
+    ['events', 'Server Events'],
+    ['music', 'Music Commands'],
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({

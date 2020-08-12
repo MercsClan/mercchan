@@ -11,7 +11,7 @@ module.exports = class kill extends Command {
       name: 'kill',
       aliases: ['stop-bot'],
       memberName: 'kill',
-      group: 'utilities',
+      group: 'admin',
       description: 'Stops MercChan',
       guildOnly: true,
       clientPermissions: ['SEND_MESSAGES'],
@@ -20,7 +20,8 @@ module.exports = class kill extends Command {
   }
 
   run(message) {
-    if (os.arch === 'arm') {
+    if (os.arch() === 'arm') {
+      message.say('Sending webhook to stop PM2');
       axios({
         method: 'post',
         url: `${postSite}/command`,
@@ -32,6 +33,7 @@ module.exports = class kill extends Command {
         },
       });
     } else {
+      message.say('Stopping Mercchan');
       process.exit(0);
     }
   }

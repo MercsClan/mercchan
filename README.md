@@ -22,7 +22,7 @@ Mercs Discord Bot
 | **RPG**       |                                |                                |                                               |
 | !roll         | [# of dice]d[size of dice]     | Anyone                         | Replies with dice rolls                       |
 | !coinflip     |                                | Anyone                         | Replies with a head or tails coin image       |
-| **HIDDEN**    |                                |                                |                                               |
+| **Admin**     |                                |                                |                                               |
 | !reboot       |                                | COMMANDER                      | Sends webhook to reboot MercChan              |
 | !kill         |                                | COMMANDER                      | Kills MercChan Process                        |
 | !purge        | # (1-100)                      | COMMANDER                      | Deletes the last x messages from channel      |

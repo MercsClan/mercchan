@@ -10,7 +10,7 @@ module.exports = class reboot extends Command {
       name: 'reboot',
       aliases: ['restart'],
       memberName: 'reboot',
-      group: 'utilities',
+      group: 'admin',
       description: 'Reboot MercChan',
       guildOnly: true,
       clientPermissions: ['SEND_MESSAGES'],
@@ -23,6 +23,7 @@ module.exports = class reboot extends Command {
   }
 
   async run(message) {
+    message.say('Sending reboot webhook');
     axios({
       method: 'post',
       url: `${postSite}/command`,
