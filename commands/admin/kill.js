@@ -19,6 +19,12 @@ module.exports = class kill extends Command {
     });
   }
 
+  hasPermission(message) {
+    const approvedRoles = ['⚔️ Commander'];
+    const title = message.member.roles.highest.name;
+    return approvedRoles.includes(title) ? true : 'Only Commanders may stop.';
+  }
+
   run(message) {
     if (os.arch() === 'arm') {
       message.say('Sending webhook to stop PM2');

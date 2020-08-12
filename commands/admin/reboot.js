@@ -18,8 +18,9 @@ module.exports = class reboot extends Command {
     });
   }
   hasPermission(message) {
-    if (message.member.roles.highest.name.includes('⚔️ Commander')) return true;
-    return 'Command for Premium Members Only';
+    const approvedRoles = ['⚔️ Commander'];
+    const title = message.member.roles.highest.name;
+    return approvedRoles.includes(title) ? true : 'Only Commanders may reboot.';
   }
 
   async run(message) {
