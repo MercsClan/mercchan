@@ -19,10 +19,14 @@ Mercs Discord Bot
 | **Events**    |                                |                                |                                               |
 | !event        | Game, # of players, Time, Date | COMMANDER / Division Commander | Creates a new event in the channel            |
 | !cleanevents  | Number of days past the event  | COMMANDER / Division Commander | Deletes Role and Channel associate with event |
+| **RPG**       |                                |                                |                                               |
+| !roll         | [# of dice]d[size of dice]     | Anyone                         | Replies with dice rolls                       |
+| !coinflip     |                                | Anyone                         | Replies with a head or tails coin image       |
 | **HIDDEN**    |                                |                                |                                               |
 | !reboot       |                                | COMMANDER                      | Sends webhook to reboot MercChan              |
 | !kill         |                                | COMMANDER                      | Kills MercChan Process                        |
 | !purge        | # (1-100)                      | COMMANDER                      | Deletes the last x messages from channel      |
+| !say          | title, announcement            | COMMANDER                      | Sands a message to the announcements channel  |
 
 ## Requirements
 
