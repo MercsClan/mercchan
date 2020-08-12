@@ -29,8 +29,7 @@ module.exports = class sayCommand extends Command {
   }
 
   hasPermission(message) {
-    const approvedRoles = ['⚔️ Commander'];
-    const title = message.member.roles.highest.name;
+    const approvedRoles = ['⚔️ Commander', '🛡 Division Commander'];
     if (approvedRoles.includes(title)) return true;
     return 'Only Division Commanders and above may create events.';
   }
