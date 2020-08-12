@@ -30,9 +30,10 @@ Mercs Discord Bot
 
 ## Requirements
 
-DISCORDTOKEN  
-YOUTUBE API KEY  
-ISTHEREANYDEAL API KEY
-IGDB API KEY
+[Discord Token](https://discordapp.com/developers/applications/)  
+[Youtube API Key](https://developers.google.com/youtube/registering_an_application)  
+[IsThereAnyDeal API Key](https://isthereanydeal.com/apps/)  
+[IGDB API Key](https://www.igdb.com/api)  
+[Open Weather Map API Key](https://openweathermap.org/appid)
 
 See .env.example
