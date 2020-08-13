@@ -1,6 +1,6 @@
 const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
 const db = require('../../Firebase/firebase.js');
+const { doc } = require('../../Firebase/firebase.js');
 
 module.exports = class createCharacter extends Command {
   constructor(client) {
@@ -19,8 +19,10 @@ module.exports = class createCharacter extends Command {
   }
 
   hasPermission(message) {
-    if (message.author.id === '188090196833599488') return true;
-    return 'This feature is still under development';
+    const approvedRoles = ['⚔️ Commander'];
+    const title = message.member.roles.highest.name;
+    if (approvedRoles.includes(title)) return true;
+    return 'Command under development';
   }
 
   async run(message) {
@@ -28,28 +30,30 @@ module.exports = class createCharacter extends Command {
     if (message.channel.type != 'dm')
       return message.say('Use command as DM to MercChan');
 
-    const userCollection = db.collection('rpg');
+    //Query user Characters
+    const rpgCollection = db.collection('rpg');
+    let charOrder;
+    const userChars = await rpgCollection
+      .where('discordID', '==', message.author.id)
+      .get();
 
-    // Lookup current users characters
-    const userDoc = await userCollection
-      .doc('users')
+    // Check for too many characters
+    const charQty = userChars.size;
+    if (charQty >= 3) {
+      return message.say(`You already have ${charQty} characters.`);
+    } else {
+      const args = message.content.split(' ');
+      let charName = `${args[1]} ${args[2]}`;
+      if (!args[1])
+        return message.say('Please use command followed by character name');
 
-      .get()
-      .catch((error) => {
-        console.error(error);
+      // Add new character
+      const newCharacter = rpgCollection.add({
+        discordTag: message.author.tag,
+        discordID: message.author.id,
+        name: charName,
+        order: charOrder,
       });
-
-    console.log(userDoc.data());
-
-    return;
-
-    // //Add Character
-    // const doc = message.author.id;
-    // db.collection('events').doc(doc).set({
-    //   name: charName,
-    //   hp: 'TBD',
-    // });
-
-    // const embed = new MessageEmbed();
+    }
   }
 };
