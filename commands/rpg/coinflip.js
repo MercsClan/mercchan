@@ -13,7 +13,6 @@ module.exports = class roll extends Command {
         usages: 1,
         duration: 5,
       },
-      guildOnly: true,
       clientPermissions: ['SEND_MESSAGES'],
     });
   }
@@ -29,7 +28,10 @@ module.exports = class roll extends Command {
     } else {
       embed.setImage('https://i.imgur.com/QG66xxA.jpg');
     }
-
-    message.embed(embed);
+    if (message.channel.type === 'dm') {
+      message.author.send(roll ? 'HEADS' : 'TAILS');
+    } else {
+      message.embed(embed);
+    }
   }
 };

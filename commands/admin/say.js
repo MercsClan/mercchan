@@ -30,8 +30,10 @@ module.exports = class sayCommand extends Command {
 
   hasPermission(message) {
     const approvedRoles = ['⚔️ Commander', '🛡 Division Commander'];
-    if (approvedRoles.includes(title)) return true;
-    return 'Only Division Commanders and above may create events.';
+    const title = message.member.roles.highest.name;
+    return approvedRoles.includes(title)
+      ? true
+      : 'Only Division Commanders and above may send announcements.';
   }
 
   async run(message, { title, announcement }) {
