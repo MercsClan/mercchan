@@ -22,9 +22,12 @@ module.exports = class SkipToCommand extends Command {
 
   //Set permissions
   hasPermission(message) {
-    const approvedRoles = ['💎 Premium Members', '⚔️ Commander'];
-    const title = message.member.roles.highest.name;
-    if (approvedRoles.includes(title)) return true;
+    if (
+      message.member.roles.cache.some((r) =>
+        ['⚔️ Commander', '💎 Premium Members'].includes(r.name)
+      )
+    )
+      return true;
     return 'Command for Premium Members Only';
   }
 
