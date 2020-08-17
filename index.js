@@ -1,8 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
-const { MessageEmbed, Structures } = require('discord.js');
+const { Structures } = require('discord.js');
 require('dotenv').config();
 const path = require('path');
-const fs = require('fs');
 const botToken = process.env.DISCORDTOKEN;
 const owner = process.env.OWNER;
 
@@ -43,19 +42,19 @@ mercchan.registry
   })
   .registerCommandsIn(path.join(__dirname, 'commands'));
 
-const eventFiles = fs
-  .readdirSync('./events')
-  .filter((files) => files.endsWith('.js'));
+const events = {
+  ready: require('./events/ready.js'),
+  guildMemberAdd: require('./events/guildMemberAdd.js'),
+  guildCreate: require('./events/guildCreate.js'),
+  voiceStateUpdate: require('./events/voiceStateUpdate.js'),
+};
 
-for (const event of eventFiles) {
-  const events = require(`./events/${event}`);
-  const eventsName = event.split('.')[0];
-  if (eventsName === 'ready') {
-    mercchan.once(eventsName, events.bind(null, mercchan));
-  } else {
-    mercchan.on(eventsName, events.bind(null, mercchan));
-    console.log(`Loaded Event: ${eventsName}`);
-  }
-}
+mercchan
+  .on('ready', () => events.ready(mercchan))
+  .on('guildMemberAdd', (member) => events.guildMemberAdd(member))
+  .on('guildCreate', (guild) => events.guildCreate(guild))
+  .on('voiceStateUpdate', (mercchan, oldState, newState) =>
+    events.voiceStateUpdate(mercchan, oldState, newState)
+  );
 
 mercchan.login(botToken);
