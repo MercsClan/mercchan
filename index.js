@@ -53,8 +53,8 @@ mercchan
   .on('ready', () => events.ready(mercchan))
   .on('guildMemberAdd', (member) => events.guildMemberAdd(member))
   .on('guildCreate', (guild) => events.guildCreate(guild))
-  .on('voiceStateUpdate', (mercchan, oldState, newState) =>
-    events.voiceStateUpdate(mercchan, oldState, newState)
+  .on('voiceStateUpdate', (oldState, newState) =>
+    events.voiceStateUpdate(oldState, newState, mercchan)
   );
 
 mercchan.login(botToken);

@@ -1,6 +1,6 @@
 const { MessageEmbed, Structures } = require('discord.js');
 
-module.exports = async (mercchan, oldState, newState) => {
+module.exports = async (oldState, newState, mercchan) => {
   try {
     if (
       newState.channelID === '342428152645287947' &&
