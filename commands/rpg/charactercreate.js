@@ -2,12 +2,12 @@ const { Command } = require('discord.js-commando');
 const db = require('../../Firebase/firebase.js');
 const { doc } = require('../../Firebase/firebase.js');
 
-module.exports = class createCharacter extends Command {
+module.exports = class characterCreate extends Command {
   constructor(client) {
     super(client, {
-      name: 'createcharacter',
-      aliases: ['create-char'],
-      memberName: 'createcharacter',
+      name: 'charactercreate',
+      aliases: ['ccreate'],
+      memberName: 'charactercreate',
       group: 'rpg',
       description: 'Create a new character',
       throttling: {
@@ -16,13 +16,6 @@ module.exports = class createCharacter extends Command {
       },
       clientPermissions: ['SEND_MESSAGES'],
     });
-  }
-
-  hasPermission(message) {
-    const approvedRoles = ['⚔️ Commander'];
-    const title = message.member.roles.highest.name;
-    if (approvedRoles.includes(title)) return true;
-    return 'Command under development';
   }
 
   async run(message) {
