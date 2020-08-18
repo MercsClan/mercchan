@@ -16,6 +16,7 @@ Mercs Discord Bot
 | !skipto          | Playlist Index                 | COMMANDER / PREMIUM MEMBER     | Skips forward to designated track in playlist |
 | !queue           |                                | COMMANDER / PREMIUM MEMBER     | Displays the playlist queue                   |
 | !leave           |                                | COMMANDER / PREMIUM MEMBER     | Removes MercChan from the voice channel       |
+| !pause           |                                | COMMANDER / PREMIUM MEMBER     | Pauses or Resumes playing music               |
 | **Events**       |                                |                                |                                               |
 | !event           | Game, # of players, Time, Date | COMMANDER / Division Commander | Creates a new event in the channel            |
 | !cleanevents     | Number of days past the event  | COMMANDER / Division Commander | Deletes Role and Channel associate with event |
