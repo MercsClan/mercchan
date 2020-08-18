@@ -8,12 +8,14 @@ module.exports = async (reaction, user, mercchan) => {
   const emojiRocket = '⚽';
   const emojiFlightSim = '✈️';
   const emojiFallGuys = 'fg';
+  const emojiFactory = 'fb';
 
   //Role List
   const roleTarkov = '745022672152559642';
   const roleRocket = '745023066995949689';
   const roleFlight = '745023174579585165';
   const roleFallGuys = '745081929153511554';
+  const roleFactory = '745090173242703962';
 
   if (reaction.partial) {
     try {
@@ -35,6 +37,8 @@ module.exports = async (reaction, user, mercchan) => {
       nUser.roles.remove(roleTarkov);
     } else if (reaction.emoji.name === emojiFallGuys) {
       nUser.roles.remove(roleFallGuys);
+    } else if (reaction.emoji.name === emojiFactory) {
+      nUser.roles.remove(roleFactory);
     } else {
       console.log(`No Role Found: ${reaction.emoji.id}`);
     }
