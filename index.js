@@ -24,6 +24,7 @@ Structures.extend('Guild', function (Guild) {
 const mercchan = new CommandoClient({
   commandPrefix: '!',
   owner: owner,
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
 
 mercchan.registry
@@ -47,6 +48,8 @@ const events = {
   guildMemberAdd: require('./events/guildMemberAdd.js'),
   guildCreate: require('./events/guildCreate.js'),
   voiceStateUpdate: require('./events/voiceStateUpdate.js'),
+  messageReactionAdd: require('./events/messageReactionAdd.js'),
+  messageReactionRemove: require('./events/messageReactionRemove.js'),
 };
 
 mercchan
@@ -55,6 +58,11 @@ mercchan
   .on('guildCreate', (guild) => events.guildCreate(guild))
   .on('voiceStateUpdate', (oldState, newState) =>
     events.voiceStateUpdate(oldState, newState, mercchan)
+  )
+  .on('messageReactionAdd', (reaction, user) =>
+    events.messageReactionAdd(reaction, user, mercchan)
+  )
+  .on('messageReactionRemove', (reaction, user) =>
+    events.messageReactionRemove(reaction, user, mercchan)
   );
-
 mercchan.login(botToken);
