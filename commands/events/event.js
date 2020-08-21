@@ -150,7 +150,7 @@ module.exports = class eventCommand extends Command {
       channelID = '739860151573413888';
     } else {
       //channelID = '739295017855746119';
-      channelID = '739860151573413888';
+      channelID = '739295017855746119';
     }
 
     const channel = message.guild.channels.cache.get(channelID);
