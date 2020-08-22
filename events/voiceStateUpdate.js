@@ -1,14 +1,23 @@
 const { MessageEmbed, Structures } = require('discord.js');
 
+const wantingToPlayVoiceChannel = '342428152645287947';
+const wantingToPlayNotificationChannel = '731692862323818538';
+
+const flyingVoiceChannel = '745268727746134147';
+const flyingNotificationChannel = '745398796975865996';
+
 module.exports = async (oldState, newState, mercchan) => {
   try {
+    //JOINING WANTING TO PLAY
     if (
-      newState.channelID === '342428152645287947' &&
-      oldState.channelID !== '342428152645287947'
+      newState.channelID === wantingToPlayVoiceChannel &&
+      oldState.channelID !== wantingToPlayVoiceChannel
     ) {
       const user = newState.member.user;
       const title = newState.member.roles.highest.name;
-      const channel = await mercchan.channels.fetch('731692862323818538');
+      const channel = await mercchan.channels.fetch(
+        wantingToPlayNotificationChannel
+      );
 
       let embed = new MessageEmbed();
       if (title === '@everyone') {
@@ -20,13 +29,14 @@ module.exports = async (oldState, newState, mercchan) => {
       embed.setThumbnail(await user.avatarURL());
       await channel.send(embed);
     }
+    //JOINING FLYING VOICE CHANNEL
     if (
-      newState.channelID === '745268727746134147' &&
-      oldState.channelID !== '745268727746134147'
+      newState.channelID === flyingVoiceChannel &&
+      oldState.channelID !== flyingVoiceChannel
     ) {
       const user = newState.member.user;
       const title = newState.member.roles.highest.name;
-      const channel = await mercchan.channels.fetch('745398796975865996');
+      const channel = await mercchan.channels.fetch(flyingNotificationChannel);
 
       let embed = new MessageEmbed();
       if (title === '@everyone') {
