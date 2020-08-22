@@ -21,6 +21,24 @@ module.exports = async (oldState, newState, mercchan) => {
       await channel.send(embed);
     }
     if (
+      newState.channelID === '745268727746134147' &&
+      oldState.channelID !== '745268727746134147'
+    ) {
+      const user = newState.member.user;
+      const title = newState.member.roles.highest.name;
+      const channel = await mercchan.channels.fetch('745398796975865996');
+
+      let embed = new MessageEmbed();
+      if (title === '@everyone') {
+        embed.setTitle(`${user.username} is in the cockpit.`);
+      } else {
+        embed.setTitle(`${title} ${user.username} is in the cockpit.`);
+      }
+      embed.setColor(newState.member.roles.highest.hexColor);
+      embed.setThumbnail(await user.avatarURL());
+      await channel.send(embed);
+    }
+    if (
       newState.member.user.bot &&
       !newState.channelID &&
       newState.guild.musicData.songDispatcher &&
