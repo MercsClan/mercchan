@@ -4,6 +4,7 @@ module.exports = async (reaction, user, mercchan) => {
   const nUser = await reaction.message.guild.members.cache.get(user.id);
 
   // EmojiList
+  const emojiMercs = 'mercs';
   const emojiRocket = '⚽';
   const emojiFlightSim = '✈️';
   const emojiFallGuys = 'fg';
@@ -11,6 +12,7 @@ module.exports = async (reaction, user, mercchan) => {
   const emojoiAmongUs = 'among';
 
   //Role List
+  const roleRecruit = '323965184857210890';
   const roleRocket = '745023066995949689';
   const roleFlight = '745023174579585165';
   const roleFallGuys = '745081929153511554';
@@ -30,6 +32,8 @@ module.exports = async (reaction, user, mercchan) => {
   if (reaction.message.id != stored_msg_id) {
   } else {
     if (reaction.emoji.name === emojiRocket) {
+      nUser.roles.add(roleRecruit);
+    } else if (reaction.emoji.name === emojiRocket) {
       nUser.roles.add(roleRocket);
     } else if (reaction.emoji.name === emojiFlightSim) {
       nUser.roles.add(roleFlight);
