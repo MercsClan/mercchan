@@ -4,18 +4,18 @@ module.exports = async (reaction, user, mercchan) => {
   const nUser = await reaction.message.guild.members.cache.get(user.id);
 
   // EmojiList
-  const emojiTarkov = 'EFT';
   const emojiRocket = '⚽';
   const emojiFlightSim = '✈️';
   const emojiFallGuys = 'fg';
   const emojiFactory = 'fb';
+  const emojoiAmongUs = 'among';
 
   //Role List
-  const roleTarkov = '745022672152559642';
   const roleRocket = '745023066995949689';
   const roleFlight = '745023174579585165';
   const roleFallGuys = '745081929153511554';
   const roleFactory = '745090173242703962';
+  const roleAmongUs = '759837704237088808';
 
   if (reaction.partial) {
     try {
@@ -33,8 +33,8 @@ module.exports = async (reaction, user, mercchan) => {
       nUser.roles.remove(roleRocket);
     } else if (reaction.emoji.name === emojiFlightSim) {
       nUser.roles.remove(roleFlight);
-    } else if (reaction.emoji.name === emojiTarkov) {
-      nUser.roles.remove(roleTarkov);
+    } else if (reaction.emoji.name === emojoiAmongUs) {
+      nUser.roles.remove(roleAmongUs);
     } else if (reaction.emoji.name === emojiFallGuys) {
       nUser.roles.remove(roleFallGuys);
     } else if (reaction.emoji.name === emojiFactory) {
