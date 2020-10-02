@@ -9,7 +9,8 @@ module.exports = async (reaction, user, mercchan) => {
   const emojiFlightSim = '✈️';
   const emojiFallGuys = 'fg';
   const emojiFactory = 'fb';
-  const emojoiAmongUs = 'among';
+  const emojiAmongUs = 'among';
+  const emojiHalo = 'halo';
 
   //Role List
   const roleRecruit = '323965184857210890';
@@ -18,6 +19,7 @@ module.exports = async (reaction, user, mercchan) => {
   const roleFallGuys = '745081929153511554';
   const roleFactory = '745090173242703962';
   const roleAmongUs = '759837704237088808';
+  const roleHalo = '761616499840385024';
 
   if (reaction.partial) {
     try {
@@ -41,7 +43,9 @@ module.exports = async (reaction, user, mercchan) => {
       nUser.roles.add(roleFallGuys);
     } else if (reaction.emoji.name === emojiFactory) {
       nUser.roles.add(roleFactory);
-    } else if (reaction.emoji.name === emojoiAmongUs) {
+    } else if (reaction.emoji.name === emojiAmongUs) {
+      nUser.roles.add(roleAmongUs);
+    } else if (reaction.emoji.name === emojiHalo) {
       nUser.roles.add(roleAmongUs);
     } else {
       console.log(`No Role Found: ${reaction.emoji.id}`);
