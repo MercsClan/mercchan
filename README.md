@@ -1,7 +1,7 @@
 # Merc-Chan
 
 Mercs Discord Bot  
-<img src="https://img.shields.io/discord/300763347312181248?color=red&style=for-the-badge"/>
+<img src="https://img.shields.io/discord/300763347312181248?color=red&style=for-the-badge"/> <img src="https://img.shields.io/github/contributors/MercsClan/mercchan?style=for-the-badge" /> 
 
 ## Usage
 
