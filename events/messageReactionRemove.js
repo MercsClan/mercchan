@@ -2,20 +2,7 @@ module.exports = async (reaction, user, mercchan) => {
   // Message for Reactions
   const stored_msg_id = '745025770589651068';
   const nUser = await reaction.message.guild.members.cache.get(user.id);
-
-  // EmojiList
-  const emojiRocket = '⚽';
-  const emojiFlightSim = '✈️';
-  const emojiFallGuys = 'fg';
-  const emojiFactory = 'fb';
-  const emojoiAmongUs = 'among';
-
-  //Role List
-  const roleRocket = '745023066995949689';
-  const roleFlight = '745023174579585165';
-  const roleFallGuys = '745081929153511554';
-  const roleFactory = '745090173242703962';
-  const roleAmongUs = '759837704237088808';
+  const emojiRoles = require('./emojiRoles');
 
   if (reaction.partial) {
     try {
@@ -29,16 +16,25 @@ module.exports = async (reaction, user, mercchan) => {
   //Only looking for Reactions from our welcome message
   if (reaction.message.id != stored_msg_id) {
   } else {
-    if (reaction.emoji.name === emojiRocket) {
-      nUser.roles.remove(roleRocket);
-    } else if (reaction.emoji.name === emojiFlightSim) {
-      nUser.roles.remove(roleFlight);
-    } else if (reaction.emoji.name === emojoiAmongUs) {
-      nUser.roles.remove(roleAmongUs);
-    } else if (reaction.emoji.name === emojiFallGuys) {
-      nUser.roles.remove(roleFallGuys);
-    } else if (reaction.emoji.name === emojiFactory) {
-      nUser.roles.remove(roleFactory);
+    //Rocket League
+    if (reaction.emoji.name === emojiRoles.emojiRocket) {
+      nUser.roles.remove(emojiRoles.roleRocket);
+      //Flight Sim
+    } else if (reaction.emoji.name === emojiRoles.emojiFlightSim) {
+      nUser.roles.remove(emojiRoles.roleFlight);
+      //Fall Guys
+    } else if (reaction.emoji.name === emojiRoles.emojiFallGuys) {
+      nUser.roles.remove(emojiRoles.roleFallGuys);
+      //Factory Building
+    } else if (reaction.emoji.name === emojiRoles.emojiFactory) {
+      nUser.roles.remove(emojiRoles.roleFactory);
+      //Among Us
+    } else if (reaction.emoji.name === emojiRoles.emojiAmongUs) {
+      nUser.roles.remove(emojiRoles.roleAmongUs);
+      //Halo
+    } else if (reaction.emoji.name === emojiRoles.emojiHalo) {
+      nUser.roles.remove(emojiRoles.roleHalo);
+      //Invalid Emoji
     } else {
       console.log(`No Role Found: ${reaction.emoji.id}`);
     }

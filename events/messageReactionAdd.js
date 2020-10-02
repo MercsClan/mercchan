@@ -2,24 +2,7 @@ module.exports = async (reaction, user, mercchan) => {
   // Message for Reactions
   const stored_msg_id = '745025770589651068';
   const nUser = await reaction.message.guild.members.cache.get(user.id);
-
-  // EmojiList
-  const emojiMercs = 'mercs';
-  const emojiRocket = '⚽';
-  const emojiFlightSim = '✈️';
-  const emojiFallGuys = 'fg';
-  const emojiFactory = 'fb';
-  const emojiAmongUs = 'among';
-  const emojiHalo = 'halo';
-
-  //Role List
-  const roleRecruit = '323965184857210890';
-  const roleRocket = '745023066995949689';
-  const roleFlight = '745023174579585165';
-  const roleFallGuys = '745081929153511554';
-  const roleFactory = '745090173242703962';
-  const roleAmongUs = '759837704237088808';
-  const roleHalo = '761616499840385024';
+  const emojiRoles = require('./emojiRoles');
 
   if (reaction.partial) {
     try {
@@ -33,22 +16,31 @@ module.exports = async (reaction, user, mercchan) => {
   //Only looking for Reactions from our welcome message
   if (reaction.message.id != stored_msg_id) {
   } else {
-    if (reaction.emoji.name === emojiRocket) {
-      nUser.roles.add(roleRecruit);
-    } else if (reaction.emoji.name === emojiRocket) {
-      nUser.roles.add(roleRocket);
-    } else if (reaction.emoji.name === emojiFlightSim) {
-      nUser.roles.add(roleFlight);
-    } else if (reaction.emoji.name === emojiFallGuys) {
-      nUser.roles.add(roleFallGuys);
-    } else if (reaction.emoji.name === emojiFactory) {
-      nUser.roles.add(roleFactory);
-    } else if (reaction.emoji.name === emojiAmongUs) {
-      nUser.roles.add(roleAmongUs);
-    } else if (reaction.emoji.name === emojiHalo) {
-      nUser.roles.add(roleHalo);
+    //Recruits
+    if (reaction.emoji.name === emojiRoles.emojiRecruit) {
+      nUser.roles.add(emojiRoles.roleRecruit);
+      //Rocket League
+    } else if (reaction.emoji.name === emojiRoles.emojiRocket) {
+      nUser.roles.add(emojiRoles.roleRocket);
+      //Flight Sim
+    } else if (reaction.emoji.name === emojiRoles.emojiFlightSim) {
+      nUser.roles.add(emojiRoles.roleFlight);
+      //Fall Guys
+    } else if (reaction.emoji.name === emojiRoles.emojiFallGuys) {
+      nUser.roles.add(emojiRoles.roleFallGuys);
+      //Factory Building
+    } else if (reaction.emoji.name === emojiRoles.emojiFactory) {
+      nUser.roles.add(emojiRoles.roleFactory);
+      //Among Us
+    } else if (reaction.emoji.name === emojiRoles.emojiAmongUs) {
+      nUser.roles.add(emojiRoles.roleAmongUs);
+      //Halo
+    } else if (reaction.emoji.name === emojiRoles.emojiHalo) {
+      nUser.roles.add(emojiRoles.roleHalo);
+      //Invalid Emoji
     } else {
       console.log(`No Role Found: ${reaction.emoji.id}`);
+      reaction.users.remove(nUser);
     }
   }
 };
