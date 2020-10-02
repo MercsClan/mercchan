@@ -46,7 +46,7 @@ module.exports = async (reaction, user, mercchan) => {
     } else if (reaction.emoji.name === emojiAmongUs) {
       nUser.roles.add(roleAmongUs);
     } else if (reaction.emoji.name === emojiHalo) {
-      nUser.roles.add(roleAmongUs);
+      nUser.roles.add(roleHalo);
     } else {
       console.log(`No Role Found: ${reaction.emoji.id}`);
     }
