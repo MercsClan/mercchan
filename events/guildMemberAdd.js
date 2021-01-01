@@ -14,7 +14,7 @@ module.exports = async (member) => {
   const recruitRole = await member.guild.roles.cache.find(
     (role) => role.name === 'Recruit'
   );
-  //member.roles.add(recruitRole).catch(console.error);
+  member.roles.add(recruitRole).catch(console.error);
 
   channel.send(message);
   channel.send(
