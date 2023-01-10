@@ -14,7 +14,7 @@
     "discord.js-commando": "github:discordjs/Commando",
     "dotenv": "^8.2.0",
     "firebase": "^7.17.1",
-    "firebase-admin": "^9.0.0",
+    "firebase-admin": "^11.4.1",
     "opusscript": "0.0.7",
     "puppeteer": "^5.2.1",
     "simple-youtube-api": "^5.2.1",
