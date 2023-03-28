@@ -1,6 +1,4 @@
-const Discord = require("discord.js");
 const chalk = require("chalk");
-const { moderation } = require("../configs/moderation");
 
 module.exports = async (client, interaction) => {
   // Command Handler
