@@ -5,7 +5,7 @@ module.exports = async (client) => {
   await client.user.setPresence({
     activities: [
       {
-        name: `your mom shower`,
+        name: `7/11 was a part time job`,
         type: Discord.ActivityType.Watching,
       },
     ],
