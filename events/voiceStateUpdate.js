@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const chalk = require("chalk");
 const config = require("../configs/config");
 
 module.exports = async (client, oldState, newState) => {
@@ -35,21 +34,21 @@ module.exports = async (client, oldState, newState) => {
       .setColor(member.roles.highest.hexColor)
       .addFields(
         {
-          name: `<:coolthum:1090083178393370684> Rank:`,
+          name: `${config.rankEmoji} Rank:`,
           value: `${member.roles.highest.name}`,
           inline: true,
         },
         {
-          name: `<:mercs:394883427205120011> Joined:`,
+          name: `${config.mercEmoji} Joined:`,
           value: `${member.joinedAt.toLocaleDateString("en-US")}`,
           inline: true,
         },
         {
-          name: `<:nitro:1091080875749408918>  Boosting:`,
+          name: `${config.nitroEmoji} Boosting:`,
           value: `${
             member.premiumSince
               ? member.premiumSince
-              : `<:pepekms:1090083454105944195>  Nope`
+              : `${config.pepeEmoji} Nope`
           }`,
           inline: false,
         }
