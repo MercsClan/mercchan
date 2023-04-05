@@ -11,17 +11,30 @@ module.exports = {
         .setName("game")
         .setDescription("What game do you want to search?")
         .setRequired(true)
+    )
+    .addBooleanOption((option) =>
+      option
+        .setName("ephemeral")
+        .setDescription("Hides the bot's reply from others. (Default: False)")
     ),
 
   async execute(client, interaction) {
+    const ephemeral = interaction.options.getBoolean("ephemeral");
+    await interaction.deferReply({ ephemeral: ephemeral });
+
     const game = interaction.options.getString("game");
-    try {
-      const encodedGame = encodeURI(game);
-      const lookupRes = await fetch(
-        `https://api.isthereanydeal.com/v02/game/plain/?key=${itadkey}&title=${encodedGame}`
+    const encodedGame = encodeURI(game);
+    const lookupRes = await fetch(
+      `https://api.isthereanydeal.com/v02/game/plain/?key=${itadkey}&title=${encodedGame}`
+    );
+    const plain = await lookupRes.json();
+    const codedGame = plain.data?.plain;
+    if (!codedGame) {
+      const embed = new Discord.EmbedBuilder().setDescription(
+        `Could not find a match for ${game}. Maybe try a different spelling.`
       );
-      const plain = await lookupRes.json();
-      const codedGame = plain.data?.plain;
+      await interaction.editReply({ embeds: [embed] });
+    } else {
       const active = plain[".meta"]?.active;
       if (active && codedGame !== "") {
         const gameInfoPromise = fetch(
@@ -67,16 +80,9 @@ module.exports = {
           ...storeButtons
         );
         storeButtons.length > 0
-          ? await interaction.reply({ embeds: [embed], components: [row] })
-          : await interaction.reply({ embeds: [embed] });
+          ? await interaction.editReply({ embeds: [embed], components: [row] })
+          : await interaction.editReply({ embeds: [embed] });
       }
-    } catch (err) {
-      console.log(err);
-      const embed = new Discord.EmbedBuilder().setDescription(
-        `Could not find a match for ${game}. Maybe try a different spelling.`
-      );
-
-      await interaction.reply({ embeds: [embed] }).catch(() => null);
     }
   },
 };
