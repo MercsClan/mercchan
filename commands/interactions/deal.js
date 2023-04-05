@@ -49,8 +49,8 @@ module.exports = {
         ]);
         const gameInfo = await gameResponse.json();
         const storeInfo = await storeResponse.json();
-        const steamReview = gameInfo.data[codedGame].reviews.steam
-          ? `Steam Review: ${gameInfo.data[codedGame].reviews.steam.perc_positive}% ${gameInfo.data[codedGame].reviews.steam.text}`
+        const steamReview = gameInfo.data[codedGame]?.reviews?.steam
+          ? `Steam Review: ${gameInfo.data[codedGame]?.reviews?.steam?.perc_positive}% ${gameInfo.data[codedGame]?.reviews?.steam?.text}`
           : "No Steam Reviews Found";
 
         const embed = new Discord.EmbedBuilder()
@@ -64,7 +64,7 @@ module.exports = {
           .setDescription(steamReview);
 
         const storeButtons = [];
-        storeInfo.data[codedGame].list.forEach((store) => {
+        storeInfo?.data[codedGame]?.list?.forEach((store) => {
           embed.addFields({
             name: `${config.dealEmoji[store.shop.name]} ${store.shop.name}`,
             value: ` Current Price: ${store.price_new} \n Regular Price: ${store.price_old}`,

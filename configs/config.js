@@ -3,8 +3,8 @@ module.exports = {
   errorColor: "Red",
   prefix: "%",
   clientId: "1089665953412944013",
-  wantingToPlayChannel: "542572526669266953",
-  wantingToPlayNotificationChannel: "1089563647287754863",
+  wantingToPlayChannel: "342428152645287947",
+  wantingToPlayNotificationChannel: "745649378483765391",
 
   emoji: {
     rank: "<:coolthum:1090083178393370684>",
