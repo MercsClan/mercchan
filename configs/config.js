@@ -1,10 +1,10 @@
 module.exports = {
   mainColor: "LuminousVividPink",
   errorColor: "Red",
-  prefix: "%",
+  prefix: "!",
   clientId: "1089665953412944013",
   wantingToPlayChannel: "342428152645287947",
-  wantingToPlayNotificationChannel: "745649378483765391",
+  wantingToPlayNotificationChannel: "1068397434239197194",
 
   emoji: {
     rank: "<:coolthum:1090083178393370684>",
