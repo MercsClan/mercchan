@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const itadkey = process.env.ITAD_API_KEY;
+const config = require("../../configs/config");
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -52,7 +53,7 @@ module.exports = {
         const storeButtons = [];
         storeInfo.data[codedGame].list.forEach((store) => {
           embed.addFields({
-            name: store.shop.name,
+            name: `${config.dealEmoji[store.shop.name]} ${store.shop.name}`,
             value: ` Current Price: ${store.price_new} \n Regular Price: ${store.price_old}`,
             inline: true,
           });

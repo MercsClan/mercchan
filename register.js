@@ -35,11 +35,6 @@ const rest = new Discord.REST({ version: "10" }).setToken(discordToken);
         `Successfully reloaded ${data.length} application (/) commands.`
       )
     );
-    console.log(
-      chalk.bold.redBright(
-        `Note: if you didn't see slash commands in your server maybe your bot don't have "application.commands" scope try to invite it using this link\nhttps://discord.com/api/oauth2/authorize?client_id=${config.clientId}&permissions=0&scope=bot%20applications.commands`
-      )
-    );
   } catch (error) {
     console.error(chalk.bold.redBright(error));
   }

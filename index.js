@@ -4,6 +4,8 @@ const fs = require("node:fs");
 require("dotenv").config();
 
 const token = process.env.DISCORDTOKEN;
+
+console.log(chalk.bold.red("🟥 Merc Chan is offline."));
 //======================Client======================\\
 const client = new Discord.Client({
   intents: [
@@ -12,7 +14,6 @@ const client = new Discord.Client({
     Discord.GatewayIntentBits.DirectMessageReactions,
     Discord.GatewayIntentBits.DirectMessageTyping,
     Discord.GatewayIntentBits.DirectMessages,
-    Discord.GatewayIntentBits.GuildBans,
     Discord.GatewayIntentBits.GuildEmojisAndStickers,
     Discord.GatewayIntentBits.GuildIntegrations,
     Discord.GatewayIntentBits.GuildInvites,
@@ -20,6 +21,7 @@ const client = new Discord.Client({
     Discord.GatewayIntentBits.GuildMessageReactions,
     Discord.GatewayIntentBits.GuildMessageTyping,
     Discord.GatewayIntentBits.GuildMessages,
+    Discord.GatewayIntentBits.GuildModeration,
     Discord.GatewayIntentBits.GuildPresences,
     Discord.GatewayIntentBits.GuildScheduledEvents,
     Discord.GatewayIntentBits.GuildVoiceStates,
@@ -38,6 +40,7 @@ const client = new Discord.Client({
   ],
   fetchAllMembers: true,
 });
+
 // Event Handler
 console.log(chalk.bold.bgGray.cyan("Starting Events"));
 const events = fs
@@ -64,14 +67,14 @@ for (const file of messageCommands) {
 }
 
 // // // Slash Command Handler
-console.log(chalk.bold.bgGray.green("Starting Slash Commands"));
+console.log(chalk.bold.bgGray.magenta("Starting Slash Commands"));
 client.SlashCommands = new Discord.Collection();
 const slashCommands = fs
   .readdirSync(`./commands/interactions/`)
   .filter((files) => files.endsWith(".js"));
 for (const file of slashCommands) {
   const command = require(`./commands/interactions/${file}`);
-  console.log(chalk.green(`Loading ${file}`));
+  console.log(chalk.magenta(`Loading ${file}`));
   client.SlashCommands.set(command.data.name, command);
   delete require.cache[require.resolve(`./commands/interactions/${file}`)];
 }

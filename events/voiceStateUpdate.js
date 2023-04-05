@@ -34,21 +34,21 @@ module.exports = async (client, oldState, newState) => {
       .setColor(member.roles.highest.hexColor)
       .addFields(
         {
-          name: `${config.rankEmoji} Rank:`,
+          name: `${config.emoji.rank} Rank:`,
           value: `${member.roles.highest.name}`,
           inline: true,
         },
         {
-          name: `${config.mercEmoji} Joined:`,
+          name: `${config.emoji.merc} Joined:`,
           value: `${member.joinedAt.toLocaleDateString("en-US")}`,
           inline: true,
         },
         {
-          name: `${config.nitroEmoji} Boosting:`,
+          name: `${config.emoji.nitro} Boosting:`,
           value: `${
             member.premiumSince
               ? member.premiumSince
-              : `${config.pepeEmoji} Nope`
+              : `${config.emoji.pepe} Nope`
           }`,
           inline: false,
         }
