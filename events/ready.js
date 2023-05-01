@@ -1,21 +1,21 @@
 const Discord = require("discord.js");
 const chalk = require("chalk");
-const { connect } = require("mongoose");
+const { Sequelize } = require("sequelize");
 const databaseUrl = process.env.DATABASEURL;
 
 module.exports = async (client) => {
   //Database Connection
   if (!databaseUrl) return;
 
-  await connect(databaseUrl || "", {
-    keepAlive: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  const sequelize = new Sequelize(databaseUrl, {
+    logging: false,
+    dialect: "mysql",
   });
 
-  if (connect) {
+  try {
+    await sequelize.authenticate();
     console.log(chalk.bold.bgBlack.green(`Database connected.`));
-  } else {
+  } catch (err) {
     console.log(chalk.bold.bgBlack.red(`Database connection failed.`));
     return;
   }
