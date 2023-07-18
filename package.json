@@ -16,7 +16,7 @@
     "chalk": "4.1.2",
     "discord.js": "^14.8.0",
     "dotenv": "^16.0.3",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.3.3",
     "mysql2": "^3.2.4",
     "nodemon": "^2.0.22",
     "openai": "^3.2.1",
